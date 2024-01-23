@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+
+{% block title %}My Pets app {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="relative w-full h-full bg-transparent">
+    <!-- Background Image -->
+    <img src="{% static 'pet_app/furryfriends.png' %}" alt="Laboratory Image" class="absolute top-0 left-0 w-full h-full opacity-30 -z-10">
+
+    <!-- Content -->
+    <div class="container mx-auto p-6 z-10">
+        <h2 class="text-2xl font-semibold text-black mb-4">
+            About My Pet app
+        </h2>
+        <p class="text-black mb-6">
+            At the my pet app, we are dedicated to providing accurate and timely diagnostic services...
+        </p>
+        <div class="flex flex-col space-y-4 z-10">
+            <!-- Brucellosis Diagnostics -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-gray-700">Brucellosis Diagnostics</h3>
+                <p class="text-gray-600">
+                    We employ a combination of clinical assessment and advanced laboratory tests, including serology,
+                    PCR,
+                    and culture methods, to detect Brucella infection in humans and animals. Our procedures are designed
+                    with a strong emphasis on biosafety, safeguarding both our staff and the environment.
+                </p>
+            </div>
+
+            <!-- Mycobacteria Bovina Diagnosis -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-gray-700">Mycobacteria Bovina Diagnosis</h3>
+                <p class="text-gray-600">
+                    Our approach to diagnosing bovine tuberculosis in cattle involves comprehensive testing methods like
+                    culture, PCR, and tuberculin skin testing. This is crucial not only for animal health but also for
+                    controlling the spread of this disease to other animals and humans.
+                </p>
+            </div>
+
+            <!-- Leptospirosis Diagnosis -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-gray-700">Leptospirosis Diagnosis</h3>
+                <p class="text-gray-600">
+                    We utilize serological assays, PCR, and culture methods to detect Leptospira bacteria. Early
+                    diagnosis
+                    is essential for effective treatment and controlling the spread of leptospirosis in both humans and
+                    animals.
+                </p>
+            </div>
+
+            <!-- Rabies Diagnosis -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-gray-700">Rabies Diagnosis</h3>
+                <p class="text-gray-600">
+                    Our laboratory conducts post-mortem examination of brain tissue samples in animals and employs tests
+                    like PCR and antibody detection in humans. This is critical for timely treatment and managing public
+                    health risks associated with rabies.
+                </p>
+            </div>
+
+            <!-- Foot-and-Mouth Disease Diagnosis -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-gray-700">Foot-and-Mouth Disease Diagnosis</h3>
+                <p class="text-gray-600">
+                    We use PCR, ELISA, and virus isolation from samples to diagnose foot-and-mouth disease. Timely and
+                    accurate diagnosis is vital for controlling outbreaks in livestock, thereby preventing significant
+                    economic losses in the agricultural sector.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>{% block title %}My pet app{% endblock %}</title>
+</head>
+
+<body class="w-full h-screen flex flex-col justify-between">
+    <nav class="w-full px-6 py-2 flex justify-between bg-orange-300">
+        <a href="/" class="text-2xl text-emerald-700 font-bold content-center py-7">My Pet app</a>
+
+        <div class="space-x-3 flex flex-row justify-between items-center">
+            <a href="{% url 'about' %}" class="flex text-white cursor-pointer">
+                About us
+            </a>
+
+            {% if request.user.is_authenticated %}
+            <div class="relative flex">
+                <button id="notificationButton"
+                    class=" py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
+                    Notifications ({{notifications.count }})
+                </button>
+                <div id="notificationList"
+                    class="w-full absolute top-12 left-0 hidden px-4 py-2 bg-rose-300 border border-slate-200 rounded-xl cursor-pointer">
+                {% if notifications %}
+                    {% for notification in notifications %}
+                    <div id="notification-{{ notification.id }}" class="notification-item"
+                        onclick="markAsRead('{{ notification.id }}')">
+                        {{ notification.message }} click to mark as read
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div>
+                        <p class="w-full text-black text-center">No new notifications.</p>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'userprofile:myaccount' %}"
+                class="py-2 px-4 flex bg-red-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
+                MyAccount
+            </a>
+            <a href="{% url 'dashboard:dashboard' %}"
+                class="py-2 px-4 flex bg-red-400 rounded-xl text-white border-solid border-2 border-rose-500 ">
+                Home
+            </a>
+
+            {% else %}
+            <!-- Links for Unauthenticated Users -->
+            <a href="{% url 'login' %}"
+                class="py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">Log
+                in</a>
+
+            <!-- Dropdown Button for Sign Up -->
+            <div class="relative inline-block text-left">
+                <div class="relative flex">
+                    <button id="signupButton"
+                        class=" py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
+                        Sign Up
+                    </button>
+
+                    <div id="signupDropdown"
+                        class="w-full absolute top-12 left-0 hidden px-4 py-2 bg-rose-200 border border-slate-200 rounded-xl z-50 cursor-pointer">
+                        <a href="{% url 'userprofile:signup' 'petowner' %}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900">
+                            PetOwner
+                        </a>
+                        <a href="{% url 'userprofile:signup' 'vetstaff' %}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900 cursor-pointer">
+                            VetStaff
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="py-8 bg-gray-200">
+        <div class="flex justify-center items-center">
+            <p class="text-xs text-gray-700">Copyright (c) 2023 - MyFurryFriendsDxLab</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<script>
+
+    function initDropdownToggles() {
+        const signupButton = document.getElementById("signupButton");
+        if (signupButton) {
+            signupButton.onclick = function () {
+                document.getElementById("signupDropdown").classList.toggle("hidden");
+            };
+        }
+
+        const notificationButton = document.getElementById("notificationButton");
+        if (notificationButton) {
+            notificationButton.onclick = function () {
+                document.getElementById("notificationList").classList.toggle("hidden");
+            };
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', initDropdownToggles);
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    function markAsRead(notificationId) {
+        axios.post(`{% url 'userprofile:mark_notification_as_read' 0 %}`.replace('/0/', `/${notificationId}/`), {}, {
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+        })
+            .then(response => {
+                if (response.data.status === 'success') {
+                    document.getElementById(`notification-${notificationId}`).remove();
+                }
+            })
+            .catch(error => console.error('Error marking notification as read:', error));
+    }
+
+
+    function fetchNotifications() {
+        axios.get("{% url 'userprofile:get_notifications' %}")
+            .then(response => {
+                const notifications = response.data.notifications;
+                updateNotificationUI(notifications);
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+
+    function updateNotificationUI(notifications) {
+        const notificationList = document.getElementById("notificationList");
+        notificationList.innerHTML = ''; // Clear existing notifications
+
+        notifications.forEach(notification => {
+            const div = document.createElement('div');
+            div.id = `notification-${notification.id}`;
+            div.className = 'notification-item';
+            div.textContent = notification.message; // Update as needed
+            div.onclick = () => markAsRead(notification.id); // Add onclick event
+            notificationList.appendChild(div);
+        });
+
+        // Update notification count
+        const notificationButton = document.getElementById("notificationButton");
+        notificationButton.textContent = `Notifications (${notifications.length})`;
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchNotifications)
+
+    function showPasswordConditions() {
+        // Implement the logic to show password conditions
+        // For example, you could display a message or a list of conditions
+        var passwordConditions = document.getElementById("password-conditions");
+        if (passwordConditions) {
+            passwordConditions.style.display = 'block';
+        }
+    }
+
+</script>

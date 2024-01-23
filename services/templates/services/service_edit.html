@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Add Diagnostic Services {% endblock %}
+
+{% block content %}
+
+<div class="py-6 px-6">
+
+    <h1 class="text-xl">Edit Diagnostic Services</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="py-4 px-8 bg-blue-500 text-white rounded-xl">Submit</button>
+
+
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %} {{ service.name}} {% endblock %}
+
+{% block content %}
+
+    <div class="py-6 px-6">
+
+        <h1 class="mb-4 text-xl">{{ service.name}}</h1>
+
+        {% if service.description %}
+
+            <p class="font-semibold">Description</p>
+            <p class="mb-2 text-xl">{{ service.description }}</p>
+
+            <p class="font-semibold">Cost</p>
+            <p class="mb-2 text-xl">{{ service.cost }}</p>
+
+            <p class="font-semibold">Duration</p>
+            <p class="mb-2 text-xl">{{ service.duration }}</p>
+
+        {% endif %}
+
+            <p class="font-semibold">Created by</p>
+            <p class="mb-2 text-xl">{{ service.name.created_by}}</p>
+
+            <hr class="mb-4">
+
+            <a href="{% url 'services:edit' service.id %}" class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Edit</a>
+
+            <a href="{% url 'services:delete' service.id %}" class="inline-block py-4 px-6 bg-red-500 rounded-xl text-white">Delete</a>
+
+            <hr class="mb-4">
+
+            <a href="{% url 'services:list' %}" class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Back to labservices</a>
+
+    </div>
+
+{% endblock %}

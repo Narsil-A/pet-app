@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Add your furry Friend {% endblock %}
+
+{% block content %}
+
+<div id="petsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+    <!-- JavaScript will dynamically render pet cards or a message if no pets are available -->
+</div>
+
+<script>
+    const petsData = JSON.parse('{{ pets|safe }}');
+
+    if (petsData.length === 0) {
+        document.getElementById('petsContainer').innerHTML = '<div class="text-gray-600 text-center py-4">No pets added yet.</div>';
+    } else {
+        petsData.forEach(pet => {
+            const petCard = `
+                <div class="card bg-white shadow-lg rounded-lg p-4">
+                    ${pet.image_url ? `<img src="${pet.image_url}" alt="${pet.name}" class="rounded-lg mb-4" style="max-height: 200px; object-fit: cover;">` : ''}
+                    <h2 class="text-xl font-bold">${pet.name}</h2>
+                    <p>Species: ${pet.species}</p>
+                    <p>Breed: ${pet.breed}</p>
+                    <p>Gender: ${pet.gender}</p>
+                    <p>Age: ${pet.age}</p>
+                    <p>Spayed or Neutered: ${pet.spayed_neutered}</p>
+                    <p>Medical history: ${pet.medical_history.join(', ')}</p>
+                    <a href="/pets/${pet.id}/" class="text-xl font-bold">Detail</a>
+                </div>
+            `;
+            document.getElementById('petsContainer').innerHTML += petCard;
+        });
+    }
+</script>
+
+{% endblock %}

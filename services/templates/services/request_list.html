@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Pet Services{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
+
+    {% if request.user.is_petowner %}
+        <a href="{% url 'services:request_service' %}" class="inline-block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300">Request Services</a>
+    {% endif %}
+
+    {% if requests_services %}
+    <div class="overflow-x-auto mt-6">
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Client Username</th>
+                    <th class="py-3 px-6 text-left">Service</th>
+                    <th class="py-3 px-6 text-left">Pet</th>
+                    <th class="py-3 px-6 text-left">Created At</th>
+                    <th class="py-3 px-6 text-left">Status</th>
+                    <th class="py-3 px-6 text-left">Payment</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                {% for request_service in requests_services %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 {% cycle '' 'bg-gray-50' %}">
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <a href="{% url 'services:request_detail' request_service.id %}" class="text-blue-600 hover:text-blue-800 transition duration-300">{{ request_service.petowner.username }}</a>
+                        </td>
+                        <td class="py-3 px-6 text-left">{{ request_service.service.name }}</td>
+                        <td class="py-3 px-6 text-left">{{ request_service.pet.name }}</td>
+                        <td class="py-3 px-6 text-left">{{ request_service.created_at }}</td>
+                        <td class="py-3 px-6 text-left">{{ request_service.latest_status_update }}</td>
+                        <td class="py-3 px-6 text-left">
+                            {% if request_service.paid %}
+                                Paid
+                            {% else %}
+                                Not Paid
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-gray-600 mt-6">There are no diagnostic services in the database yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

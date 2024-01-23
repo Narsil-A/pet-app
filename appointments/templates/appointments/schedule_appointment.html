@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Schedule Appointment {% endblock %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Schedule Your Appointment</h1>
+    <form method="post" enctype="multipart/form-data" action="." class="bg-white shadow-md rounded-lg p-6">
+        {% csrf_token %}
+
+        <!-- Date Picker for Appointment Date -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="appointment_date">
+                Select Appointment Date
+            </label>
+            <input type="date" id="appointment_date" name="appointment_date"
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="mb-4">
+            {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %} 
+        </div>
+        
+        <div>
+        </div>
+
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Schedule Appointment
+        </button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('appointment_date').addEventListener('change', function () {
+        const selectedDate = this.value;
+        axios.get(`{% url 'appointments:available_slots' %}`, {
+            params: { date: selectedDate, service_id: "{{ service.id }}" }
+        })
+        .then(function (response) {
+            console.log(response.data);
+            const slotSelect = document.getElementById('id_slot'); // Corrected ID
+            slotSelect.innerHTML = '';
+            response.data.forEach(function (slot) {
+                slotSelect.options[slotSelect.options.length] = new Option(slot.start_time + ' - ' + slot.end_time, slot.id);
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+            // Handle errors here, such as displaying a message to the user
+        });
+    });
+</script>
+
+
+{% endblock %}

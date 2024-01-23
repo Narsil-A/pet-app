@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add Medical Visit{% endblock %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Add Medical Visit</h1>
+    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-lg">
+        <form method="post" enctype="multipart/form-data" action="." class="p-6">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

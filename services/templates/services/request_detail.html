@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Request Detail - {{ request_detail.petowner.username }} {% endblock %}
+
+{% block content %}
+<div class="py-6 px-6">
+    <h1 class="mb-4 text-xl">Request Detail for {{ request_detail.petowner.username }}</h1>
+    <h1 class="mb-4 text-xl">Request Detail for {{ request_detail.pet.name }}</h1>
+
+    {% if request_detail.service %}
+    <p class="font-semibold">Service: {{ request_detail.service.name }}</p>
+    {% endif %}
+
+    {% if request_detail.latest_status_update %}
+    <p class="mb-2 text-xl">Latest Status: {{ request_detail.latest_status_update}}</p>
+    {% else %}
+    <p class="mb-2 text-xl">No status updates available.</p>
+    {% endif %}
+
+    <!-- Display All Updates -->
+    <div class="mt-4">
+        <h2 class="text-lg font-semibold">Updates History</h2>
+        {% for update in updates %}
+        <div class="mt-2 border-b border-gray-200 py-2">
+            <p>Status: {{ update.get_status_display }}</p>
+            <p>Note: {{ update.notes }}</p>
+            <p>Updated by: {{ update.updated_by.username }}</p>
+            <p>Updated at: {{ update.created_at }}</p>
+        </div>
+        {% empty %}
+        <p>No updates have been made for this request.</p>
+        {% endfor %}
+    </div>
+    <p>
+        Payment Status:
+        {% if request_detail.paid %}
+        Paid
+        {% else %}
+        Not Paid
+        {% endif %}
+    </p>
+
+    <div>
+        {% if request_detail.petowner == user or user.is_vetstaff %}
+        <form action="{% url 'services:cancel_service_request' request_detail.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Cancel Request" class="btn btn-danger" />
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Update Form for Lab Staff -->
+    {% if request.user.is_vetstaff %}
+    <div class="mt-4">
+        <h2 class="text-lg font-semibold">Update Status</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded">Update Status</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

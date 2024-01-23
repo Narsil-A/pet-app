@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %} My Account {% endblock %}
+
+{% block content %}
+
+<div class="container mx-auto p-6">
+    <h1 class="mb-6 text-2xl font-semibold text-gray-800">My Account</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="mb-4">
+            <strong class="block text-gray-700">Username:</strong>
+            <span class="text-gray-600">{{ request.user.username }}</span>
+        </div>
+
+        <div class="mb-4">
+            <strong class="block text-gray-700">Email:</strong>
+            <span class="text-gray-600">{{ request.user.email }}</span>
+        </div>
+
+        <div class="mb-4">
+            <strong class="block text-gray-700">First Name:</strong>
+            <span class="text-gray-600">{{ request.user.first_name }}</span>
+        </div>
+
+        <div class="mb-4">
+            <strong class="block text-gray-700">Last Name:</strong>
+            <span class="text-gray-600">{{ request.user.last_name }}</span>
+        </div>
+
+        <div class="mb-4">
+            <strong class="block text-gray-700">Address:</strong>
+            <span class="text-gray-600">{{ request.user.address }}</span>
+        </div>
+        
+        {% if lab_staff %}
+        <div class="mb-4">
+            <strong class="block text-gray-700">Position:</strong>
+            <span class="text-gray-600">{{ lab_staff.position }}</span>
+        </div>
+        <div class="mb-4">
+            <strong class="block text-gray-700">Profession:</strong>
+            <span class="text-gray-600">{{ lab_staff.profession }}</span>
+        </div>
+        <div class="mb-4">
+            <strong class="block text-gray-700">Degrees:</strong>
+            <span class="text-gray-600">{{ lab_staff.degrees }}</span>
+        </div>
+        {% else %}
+        <p class="text-gray-600 italic">You are not registered as Lab Staff.</p>
+        {% endif %}
+    </div>
+
+    <form action="{% url 'logout' %}" method="post" class="mt-6">
+        {% csrf_token %}
+        <button type="submit"
+            class="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75">
+            Logout
+        </button>
+    </form>
+</div>
+
+{% endblock %}

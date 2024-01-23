@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Medical Visits{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Medical Visits</h1>
+
+    {% if medical_visits %}
+    <div class="overflow-x-auto mt-6">
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Pet</th>
+                    <th class="py-3 px-6 text-left">Date of Visit</th>
+                    <th class="py-3 px-6 text-left">Symptoms</th>
+                    <th class="py-3 px-6 text-left">Diagnosis</th>
+                    <th class="py-3 px-6 text-left">Treatment</th>
+                    <th class="py-3 px-6 text-left">Vet Staff</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                {% for visit in medical_visits %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 {% cycle '' 'bg-gray-50' %}">
+                        <td class="py-3 px-6 text-left"> 
+                            <a href="{% url 'medicalvisit:medical_visit_detail'  medical_visit_id=visit.id %}" class="text-blue-600 hover:text-blue-800 transition duration-300">{{ visit.pet.name }}</a>
+                        </td>
+                        <td class="py-3 px-6 text-left">{{ visit.date_of_visit|date:"Y-m-d H:i" }}</td>
+                        <td class="py-3 px-6 text-left">{{ visit.symptoms }}</td>
+                        <td class="py-3 px-6 text-left">{{ visit.diagnosis }}</td>
+                        <td class="py-3 px-6 text-left">{{ visit.treatment }}</td>
+                        <td class="py-3 px-6 text-left">{{ visit.vet_staff.username }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-gray-600 mt-6">There are no medical visits recorded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

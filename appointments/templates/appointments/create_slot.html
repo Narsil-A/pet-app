@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Your Pet's Appointments {% endblock %}
+
+{% block content %}
+
+  <h2>Create Appointment Slot</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Slot</button>
+  </form>
+{% endblock %}

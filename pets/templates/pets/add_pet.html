@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Add your Pet Friend {% endblock %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Add your Pet Friend</h1>
+    <form method="post" enctype="multipart/form-data" action="." class="bg-white shadow-md rounded-lg p-6">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Submit
+        </button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const speciesSelect = document.getElementById('id_species');
+        const breedSelect = document.getElementById('id_breed');
+
+        const breedChoices = JSON.parse('{{ breed_choices_json|safe }}');
+
+        // Function to update breeds based on the selected species
+        function updateBreeds(selectedSpecies) {
+            const breeds = breedChoices[selectedSpecies] || [];
+            breedSelect.innerHTML = ''; // Clear existing options
+            breeds.forEach(function(breedTuple) {
+                breedSelect.innerHTML += `<option value="${breedTuple[0]}">${breedTuple[1]}</option>`;
+            });
+        }
+
+        // Event listener for species selection change
+        speciesSelect.addEventListener('change', function() {
+            updateBreeds(speciesSelect.value);
+        });
+
+        // Populate breeds on initial page load based on the default or currently selected species
+        updateBreeds(speciesSelect.value);
+    });
+</script>
+
+{% endblock %}
