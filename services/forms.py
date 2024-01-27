@@ -8,7 +8,8 @@ from .models import PetService, PetServiceTracker, PetRequestService
 class PetServicesForm(forms.ModelForm):
     class Meta:
         model = PetService
-        fields = '__all__'
+        fields = ['category', 'name', 'description', 'cost', 'duration']
+
 
 class PetRequestServicesForm(forms.ModelForm):
     class Meta:

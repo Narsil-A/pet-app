@@ -2,6 +2,7 @@
 from django import forms
 from .models import Appointment, AppointmentSlot
 from pets.models import Pet
+from userprofile.models import User
 from services.models import PetRequestService
 
 
@@ -31,14 +32,16 @@ class AppointmentForm(forms.ModelForm):
                     service_type=service_request.service, is_booked=False)
 
 
-            
-
-
 class SlotCreationForm(forms.ModelForm):
     class Meta:
         model = AppointmentSlot
         fields = ['date', 'start_time', 'end_time', 'vet_staff', 'service_type']
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super(SlotCreationForm, self).__init__(*args, **kwargs)
-        # Additional initializations if needed
+
+        # Assuming 'is_vetstaff' is a boolean field in the User model
+        if user and user.is_vetstaff:
+            self.fields['vet_staff'].queryset = User.objects.filter(is_vetstaff=True)
+

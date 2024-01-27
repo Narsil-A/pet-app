@@ -12,33 +12,57 @@
             class="absolute top-0 left-0 w-full h-full opacity-30 -z-10">
         <!-- Check for Lab Staff -->
         {% if request.user.is_vetstaff %}
-        <div class="w-fit h-fit flex space-x-4">
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'services:list' %}" class="block py-2 px-4 bg-blue-600 rounded-xl text-white">
-                    Services List</a>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'services:request_list' %}"
-                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Requested List</a>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'appointments:appointments_list' %}"
-                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Appointments list</a>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'appointments:create_slot' %}"
-                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Create Appointments Slots</a>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'medicalvisit:medical_visit' %}"
-                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Pet Medical Visit </a>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow-md">
-                <a href="{% url 'medicalvisit:medical_visit_list' %}"
-                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Pet Medical Visit Records </a>
+        <div class="container mx-auto p-4 border border-red-500">
+            <div class="flex flex-wrap -mx-4"> <!-- Margin x-4 for spacing between the quadrants -->
+                <!-- Services List and Request List -->
+                <div class="w-full md:w-1/2 px-4 mb-4 md:mb-0 border border-red-500">
+                    <div class="bg-white p-4 rounded-xl shadow-md mb-4">
+                        <a href="{% url 'services:list' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Services List</a>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-md">
+                        <a href="{% url 'services:request_list' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Requested List</a>
+                    </div>
+                </div>
+
+                <!-- Appointments and Slots -->
+                <div class="w-full md:w-1/2 px-4 border border-red-500">
+                    <div class="bg-white p-4 rounded-xl shadow-md mb-4">
+                        <a href="{% url 'appointments:appointments_list' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Appointments list</a>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-md mb-4">
+                        <a href="{% url 'appointments:create_slot' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Create Appointments Slots</a>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-md">
+                        <a href="{% url 'appointments:slots_view' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Slots Appointments</a>
+                    </div>
+                </div>
+
+                <!-- Medical Visit and Records -->
+                <div class="w-full md:w-1/2 px-4 mb-4 md:mb-0 border border-red-500">
+                    <div class="bg-white p-4 rounded-xl shadow-md mb-4">
+                        <a href="{% url 'medicalvisit:medical_visit' %}"
+                            class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Pet Medical Visit</a>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-md">
+                        <!-- The URL here should lead to the medical visit records page -->
+                        <a href="{% url 'medicalvisit:medical_visit_list' %}" class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Medical Visit Records</a>
+                    </div>
+                </div>
+
+                <!-- Inventory (Placeholder as no URL or description given) -->
+                <div class="w-full md:w-1/2 px-4 border border-red-500">
+                    <div class="bg-white p-4 rounded-xl shadow-md">
+                        <!-- The URL here should lead to the inventory page -->
+                        <a href="#" class="block py-2 px-4 bg-blue-600 rounded-xl text-white">Inventory</a>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Check for Clients -->
         {% elif request.user.is_petowner %}
         <div class="container flex flex-col border border-red-500">
@@ -118,9 +142,9 @@
                     <div class="bg-white w-fit rounded-xl shadow-md p-4 flex">
                         <!-- Requested List Button -->
                         <div class="py-2 px-4">
-                            <a href="{% url 'medicalvisit:medical_visit_list' %}"
-                                class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Medical
-                                Visit Records
+                            <a href="{% url 'pets:add_weight_record'%}"
+                                class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Add
+                                Weight Record
                             </a>
                         </div>
                     </div>
@@ -128,9 +152,6 @@
 
             </div>
         </div>
-
-
-
         <!-- Fallback for other users -->
         {% else %}
         <div class="w-full bg-gray-100 rounded-xl p-4">

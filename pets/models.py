@@ -82,3 +82,17 @@ class Pet(models.Model):
 
 
 
+class WeightRecord(models.Model):
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='weight_records')
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    date = models.DateField()
+    goal_weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.pet.name} - {self.weight}Kgs on {self.date}"
+    
+    def to_goal_weight(self):
+        if self.goal_weight is not None:
+            return self.goal_weight - self.weight
+        return None

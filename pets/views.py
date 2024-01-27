@@ -1,7 +1,8 @@
 import json
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PetOwnerForm
+from .forms import PetOwnerForm, WeightRecordForm
+from .models import WeightRecord
 from pet_app.decorators import petowner_required
 from django.contrib.auth.decorators import login_required
 
@@ -94,4 +95,59 @@ def add_pet(request):
     return render(request, 'pets/add_pet.html', {
         'form': form,
         'breed_choices_json': breed_choices_json  
+    })
+
+
+
+@login_required
+def add_weight_record(request):
+    pet = get_object_or_404(Pet, petowner=request.user)
+    if request.method == 'POST':
+        form = WeightRecordForm(request.POST, user=request.user)
+        if form.is_valid():
+            weight_record = form.save(commit=False)
+            weight_record.pet = pet
+            weight_record.save()
+            messages.success(request, "Weight record added successfully.")
+            return redirect('pets:view_weight_records', pet_id=weight_record.pet.id)   # Replace with the appropriate view
+    else:
+        form = WeightRecordForm(user=request.user)
+    
+    return render(request, 'pets/add_weight_record.html', 
+    {'form': form})
+
+
+
+@login_required
+def delete_weight_record(request, record_id):
+    record = get_object_or_404(WeightRecord, pk=record_id, pet__petowner=request.user)
+    record.delete()
+    messages.success(request, "The weight record was deleted successfully.")
+    return redirect('pets:view_weight_records', pet_id=record.pet.id)
+
+
+@login_required
+def view_weight_records(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id, petowner=request.user)
+    records = WeightRecord.objects.filter(pet=pet).order_by('-date')
+
+    # Preparing the data for the graph
+    dates = [record.date.strftime("%Y-%m-%d") for record in records]
+    weights = [float(record.weight) for record in records]
+    goal_weights = [float(record.goal_weight) for record in records if record.goal_weight]
+
+    # Serialize data for safe JavaScript use
+    dates_json = json.dumps(dates)
+    weights_json = json.dumps(weights)
+    goal_weights_json = json.dumps(goal_weights)
+    print("Dates:", dates)
+    print("Weights:", weights)
+    print("Goal Weights:", goal_weights)
+
+    return render(request, 'pets/view_weight_records.html', {
+        'pet': pet,
+        'records': records,
+        'dates_json': dates_json,
+        'weights_json': weights_json,
+        'goal_weights_json': goal_weights_json,
     })

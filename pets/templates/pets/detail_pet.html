@@ -4,7 +4,8 @@
 <div class="container mx-auto p-4">
     <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div class="p-4">
-            <img src="{{ pet.image.url }}" alt="Image of {{ pet.name }}" class="rounded-lg mb-4" style="max-height: 200px; object-fit: cover;">
+            <img src="{{ pet.image.url }}" alt="Image of {{ pet.name }}" class="rounded-lg mb-4"
+                style="max-height: 200px; object-fit: cover;">
             <h1 class="text-2xl font-bold mb-2">{{ pet.name }}</h1>
             <p class="text-md text-gray-700"><strong>Species:</strong> {{ pet.species }}</p>
             <p class="text-md text-gray-700"><strong>Breed:</strong> {{ pet.breed }}</p>
@@ -21,10 +22,15 @@
                     {% endfor %}
                 </ul>
             </div>
+            <div>
+                <a href="{% url 'pets:view_weight_records' pet.id %}"
+                    class="inline-block py-4 px-6 bg-red-500 rounded-xl text-white">Weight Records</a>
+            </div>
         </div>
         <div><a href="{% url 'pets:edit' pet.id %}"
                 class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Edit</a></div>
-            <a href="{% url 'pets:delete' pet.id %}" class="inline-block py-4 px-6 bg-red-500 rounded-xl text-white">Delete</a>
+        <a href="{% url 'pets:delete' pet.id %}"
+            class="inline-block py-4 px-6 bg-red-500 rounded-xl text-white">Delete</a>
     </div>
 </div>
 {% endblock %}

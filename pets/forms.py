@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Pet
+from .models import Pet, WeightRecord
 
 
 
@@ -24,3 +24,25 @@ class PetOwnerForm(forms.ModelForm):
         if 'instance' in kwargs and kwargs['instance']:
             species = kwargs['instance'].species
             self.fields['breed'].choices = Pet.BREED_CHOICES_DICT.get(species, [])
+
+
+
+
+
+
+class WeightRecordForm(forms.ModelForm):
+    class Meta:
+        model = WeightRecord
+        fields = ['pet', 'weight', 'date', 'goal_weight', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Extract the user from the kwargs
+        super(WeightRecordForm, self).__init__(*args, **kwargs)
+        
+        # Now we filter the 'pet' field's queryset to only include pets owned by the user
+        if user is not None:
+            self.fields['pet'].queryset = Pet.objects.filter(petowner=user)

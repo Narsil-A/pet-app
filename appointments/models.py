@@ -69,5 +69,5 @@ class Appointment(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Appointment for {self.pet.name} - {self.pet_request_service } on {self.slot.date} {self.slot.start_time}-{self.slot.end_time}"
+        return f"Appointment for {self.pet.name} - {self.pet_request_service} on {self.slot.date} {self.slot.start_time}-{self.slot.end_time}"
 

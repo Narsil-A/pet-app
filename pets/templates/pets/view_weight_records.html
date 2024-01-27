@@ -1,0 +1,73 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<!-- Weight Records -->
+<div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-semibold text-gray-800 mb-4">Weight Records for {{ pet.name }}</h1>
+    <ul class="list-disc space-y-2">
+        {% for record in records %}
+        <li>
+            <span class="font-medium text-gray-700">{{ record.weight }} Kgs</span> on <span
+                class="font-medium text-gray-700">{{ record.date }}</span>
+            - Goal: <span class="font-medium text-gray-700">{{ record.goal_weight }} Kgs</span>
+                
+                 <a href="{% url 'pets:delete_weight_record' record.id %}">Delete</a>
+             
+            {% if record.notes %}
+            <p class="text-gray-600 mt-1">Notes: {{ record.notes }}</p>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li class="text-gray-700">No weight records available.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Chart.js Graph -->
+<div class="container mx-auto my-4 p-3 bg-white shadow-lg rounded-lg">
+    <div class="relative h-25"> <!-- h-64 is an arbitrary height, you can adjust as needed -->
+        <canvas id="weightChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const dates = JSON.parse('{{ dates_json|safe }}');
+        const weights = JSON.parse('{{ weights_json|safe }}');
+        const goalWeights = JSON.parse('{{ goal_weights_json|safe }}');
+
+        const ctx = document.getElementById('weightChart').getContext('2d');
+        const weightChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Weight',
+                    data: weights,
+                    borderColor: 'rgb(75, 192, 192)',
+                    yAxisID: 'y',
+                },
+                {
+                    label: 'Goal Weight',
+                    data: goalWeights,
+                    borderColor: 'rgb(192, 75, 75)',
+                    yAxisID: 'y1',
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                }
+            }
+        });
+    </script>
+</div>
+{% endblock %}
