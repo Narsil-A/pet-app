@@ -4,36 +4,44 @@
 
 {% block content %}
 {% load widget_tweaks %}
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="container w-[70%] p-10 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6">Schedule Your Appointment</h1>
+        <form method="post" enctype="multipart/form-data" action=".">
+            {% csrf_token %}
 
-<div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Schedule Your Appointment</h1>
-    <form method="post" enctype="multipart/form-data" action="." class="bg-white shadow-md rounded-lg p-6">
-        {% csrf_token %}
-
-        <!-- Date Picker for Appointment Date -->
-        <div class="mb-4">
-            {% for field in form %}
+            <!-- Date Picker for Appointment Date -->
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
-                    {{ field.label }}
-                </label>
-                {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
-                {% if field.errors %}
+                {% for field in form %}
+                {% if field.is_hidden %}
+                {{ field }}
+                {% else %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                    {% if field.errors %}
                     <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                    {% endif %}
+                </div>
                 {% endif %}
+                {% endfor %}
             </div>
-            {% endfor %} 
-        </div>
-        
-        <div>
-        </div>
 
-        <button type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Schedule Appointment
-        </button>
-    </form>
+            <div class="flex items-center justify-center">
+                <button type="submit"
+                    class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                    <span
+                        class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                        Schedule Appointment
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
 
 <script>
     document.getElementById('appointment_date').addEventListener('change', function () {
@@ -41,18 +49,18 @@
         axios.get(`{% url 'appointments:available_slots' %}`, {
             params: { date: selectedDate, service_id: "{{ service.id }}" }
         })
-        .then(function (response) {
-            console.log(response.data);
-            const slotSelect = document.getElementById('id_slot'); // Corrected ID
-            slotSelect.innerHTML = '';
-            response.data.forEach(function (slot) {
-                slotSelect.options[slotSelect.options.length] = new Option(slot.start_time + ' - ' + slot.end_time, slot.id);
+            .then(function (response) {
+                console.log(response.data);
+                const slotSelect = document.getElementById('id_slot'); // Corrected ID
+                slotSelect.innerHTML = '';
+                response.data.forEach(function (slot) {
+                    slotSelect.options[slotSelect.options.length] = new Option(slot.start_time + ' - ' + slot.end_time, slot.id);
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+                // Handle errors here, such as displaying a message to the user
             });
-        })
-        .catch(function (error) {
-            console.log(error);
-            // Handle errors here, such as displaying a message to the user
-        });
     });
 </script>
 

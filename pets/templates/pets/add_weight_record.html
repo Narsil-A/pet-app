@@ -2,20 +2,36 @@
 
 {% block content %}
 {% load widget_tweaks %}
-<div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-4">Track Weight for {{ pet.name }}</h1>
-    <form method="post" class="space-y-4">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="flex flex-col">
-                <label for="{{ field.id_for_label }}" class="text-gray-700 font-medium">{{ field.label }}</label>
-                {{ field|add_class:"mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" }}
-                {% if field.errors %}
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="w-full h-full p-16 flex justify-center">
+        <div class="container w-[75%] p-12 bg-white shadow-lg rounded-lg">
+            <h1 class="text-2xl font-semibold text-gray-800 mb-4">Track Weight for {{ pet.name }}</h1>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                {% for field in form %}
+                {% if field.name == "pet" %}
+                {{ field.as_hidden }}
+                {% else %}
+                <div class="flex flex-col">
+                    <label for="{{ field.id_for_label }}" class="text-gray-700 font-medium">{{ field.label }}</label>{{ field|add_class:"mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" }}
+                    {% if field.errors %}
                     <span class="text-red-500 text-xs">{{ field.errors }}</span>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-        {% endfor %}
-        <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">Submit</button>
-    </form>
+                {% endfor %}
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                        <span
+                            class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                            submit
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

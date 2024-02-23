@@ -4,34 +4,40 @@
 
 {% block content %}
 {% load widget_tweaks %}
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="container w-[60%] p-6">
+        <h1 class="text-2xl font-bold mb-6">Add your Pets</h1>
+        <form method="post" action="." class="bg-white shadow-md rounded-lg p-6">
+            {% csrf_token %}
 
-<div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Add your furry Friend</h1>
-    <form method="post" action="." class="bg-white shadow-md rounded-lg p-6">
-        {% csrf_token %}
-
-        <div class="mb-4">
-            {% for field in form %}
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
-                    {{ field.label }}
-                </label>
-                {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
-                {% if field.errors %}
+                {% for field in form %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label> {{ field|add_class:"shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                    {% if field.errors %}
                     <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
-                {% endif %}
+                    {% endif %}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Submit
-        </button>
-    </form>
+            <div class="flex items-center justify-center"> 
+                <button type="submit"
+                    class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                    <span
+                        class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                        submit
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const speciesSelect = document.getElementById('id_species');
         const breedSelect = document.getElementById('id_breed');
 
@@ -41,13 +47,13 @@
         function updateBreeds(selectedSpecies) {
             const breeds = breedChoices[selectedSpecies] || [];
             breedSelect.innerHTML = ''; // Clear existing options
-            breeds.forEach(function(breedTuple) {
+            breeds.forEach(function (breedTuple) {
                 breedSelect.innerHTML += `<option value="${breedTuple[0]}">${breedTuple[1]}</option>`;
             });
         }
 
         // Event listener for species selection change
-        speciesSelect.addEventListener('change', function() {
+        speciesSelect.addEventListener('change', function () {
             updateBreeds(speciesSelect.value);
         });
 

@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="container mx-auto p-4">
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-4">
+            <a href="{% url 'pets:detail' pet.id %}">
+                {% if pet.image %}
+                <!-- If there's an image, use it -->
+                <img src="{{ pet.image.url }}" alt="Image of {{ pet.name }}" class="rounded-lg mb-4"
+                    style="max-height: 200px; object-fit: cover;">
+                {% else %}
+                <!-- Otherwise, use a default image -->
+                <img class="rounded w-36 h-36" src="{% static 'pet_app/2chf_800.jpg' %}" alt="Default profile picture">
+                {% endif %}
+                <h1 class="text-2xl font-bold mb-2">{{ pet.name }}</h1>
+                <p class="text-md text-gray-700"><strong>Species:</strong> {{ pet.species }}</p>
+                <p class="text-md text-gray-700"><strong>Breed:</strong> {{ pet.breed }}</p>
+                <p class="text-md text-gray-700"><strong>Age:</strong> {{ pet.age }}</p>
+                <p class="text-md text-gray-700"><strong>Gender:</strong> {{ pet.gender }}</p>
+                <p class="text-md text-gray-700"><strong>Spayed or Neutered:</strong> {{ pet.spayed_neutered }}</p>
+                <div class="mt-4">
+                    <h2 class="text-xl font-semibold mb-2">Medical History</h2>
+                    <ul class="list-disc pl-5 text-gray-600">
+                        {% for history in pet.medical_history.all %}
+                        <li>{{ history }}</li>
+                        {% empty %}
+                        <li class="text-gray-500 italic">No medical history records available.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <button type="button"
+                        class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        <a href="{% url 'pets:add_weight_record' pet.id %}">Add Weight Records</a>
+                    </button>
+                </div>
+            </a>
+            <div>
+                <button type="button"
+                    class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                    <a href="{% url 'pets:edit' pet.id %}">Edit</a>
+                </button>
+            </div>
+            <div>
+                <button
+                    class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                    <span
+                        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                        <a href="{% url 'pets:delete' pet.id %}">Delete</a>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

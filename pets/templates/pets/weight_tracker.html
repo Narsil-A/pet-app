@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="container mx-auto p-10 gap-x-8 gap-y-4 flex flex-col items-center justify-center">
+        <div class="w-full items-start flex"> 
+            <h1 class="text-2xl font-bold mb-3">Add a new weight for your Pets</h1>
+        </div>
+        <!-- Requested List Button -->
+        {% for pet in pets %}
+        <div
+            class="w-full p-6 flex flex-row items-center justify-start bg-white border border-gray-300 rounded-lg shadow-lg">
+            <div class="flex p-2"> {% if pet.image %}
+                <!-- If there's an image, use it -->
+                <img src="{{ pet.image.url }}" alt="Image of {{ pet.name }}" class="rounded-lg mb-4"
+                    style="width: 70px; height: 70px; object-fit: cover;">
+                {% else %}
+                <!-- Otherwise, use a default image -->
+                <img src="{% static 'pet_app/2chf_800.jpg' %}" alt="Default profile picture" class="rounded-lg mb-4"
+                    style="width: 70px; height: 70px; object-fit: cover;">
+                {% endif %}
+            </div>
+            <button
+                class="h-fit p-[2px] flex items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-fit px-5 py-2.5 bg-white rounded-md hover:bg-opacity-0 transition-all ease-in duration-75">
+                    <a href="{% url 'pets:add_weight_record' pet.id %}">
+                        {{ pet.name }}
+                    </a>
+                </span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

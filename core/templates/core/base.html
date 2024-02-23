@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 <html>
 
 <head>
@@ -8,89 +9,265 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
+
     <title>{% block title %}My pet app{% endblock %}</title>
 </head>
 
-<body class="w-full h-screen flex flex-col justify-between">
-    <nav class="w-full px-6 py-2 flex justify-between bg-orange-300">
-        <a href="/" class="text-2xl text-emerald-700 font-bold content-center py-7">My Pet app</a>
-
-        <div class="space-x-3 flex flex-row justify-between items-center">
-            <a href="{% url 'about' %}" class="flex text-white cursor-pointer">
-                About us
+<body
+    class="w-full border border-red-500 relative flex flex-col items-center min-h-screen bg-fixed bg-gradient-to-b from-slate-50 via-slate-100 to-rose-200">
+    {% if not request.user.is_authenticated %}
+    <!-- Include the script only for unauthenticated users on the home page -->
+    <script src="{% static 'pet_app/js/navbarEffect.js' %}"></script>
+    {% endif %}
+    <nav class="w-full h-20 fixed top-0 z-50 border-gray-200 px-2 sm:px-4 py-2 transition-colors duration-300 ease-in-out {% if request.user.is_authenticated or request.path != '/' %}bg-blue-500 bg-opacity-100{% endif %}"
+        id="navbar">
+        <div class="container flex flex-wrap justify-between items-center mx-auto">
+            <a href="/" class="flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-white">My Pet App</span>
             </a>
-
-            {% if request.user.is_authenticated %}
-            <div class="relative flex">
-                <button id="notificationButton"
-                    class=" py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
-                    Notifications ({{notifications.count }})
-                </button>
-                <div id="notificationList"
-                    class="w-full absolute top-12 left-0 hidden px-4 py-2 bg-rose-300 border border-slate-200 rounded-xl cursor-pointer">
-                {% if notifications %}
-                    {% for notification in notifications %}
-                    <div id="notification-{{ notification.id }}" class="notification-item"
-                        onclick="markAsRead('{{ notification.id }}')">
-                        {{ notification.message }} click to mark as read
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <div>
-                        <p class="w-full text-black text-center">No new notifications.</p>
-                    </div>
-                {% endif %}
-                </div>
-            </div>
-            <a href="{% url 'userprofile:myaccount' %}"
-                class="py-2 px-4 flex bg-red-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
-                MyAccount
-            </a>
-            <a href="{% url 'dashboard:dashboard' %}"
-                class="py-2 px-4 flex bg-red-400 rounded-xl text-white border-solid border-2 border-rose-500 ">
-                Home
-            </a>
-
-            {% else %}
-            <!-- Links for Unauthenticated Users -->
-            <a href="{% url 'login' %}"
-                class="py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">Log
-                in</a>
-
-            <!-- Dropdown Button for Sign Up -->
-            <div class="relative inline-block text-left">
+            <div class="flex md:order-2 space-x-3 rtl:space-x-reverse">
+                {% if request.user.is_authenticated %}
                 <div class="relative flex">
-                    <button id="signupButton"
-                        class=" py-2 px-4 bg-rose-400 rounded-xl text-white border-solid border-2 border-rose-500 cursor-pointer">
-                        Sign Up
+                    <button id="notificationButton"
+                        class="relative block p-2 text-gray-700 hover:text-orange-300 focus:outline-none">
+                        <!-- Inline SVG Notification Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                            <path
+                                d="M8.5 2a2 2 0 011.75 1.031c.192-.02.384-.031.58-.031h.34c.196 0 .388.011.58.031A2 2 0 0115.5 2a2 2 0 011.984 1.747A5.5 5.5 0 0110 15V5.5H8.5V2z" />
+                            <path fill-rule="evenodd" d="M10 18a3 3 0 003-3H7a3 3 0 003 3z" clip-rule="evenodd" />
+                        </svg>
+                        <!-- Notification Count Badge -->
+                        <span
+                            class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                            {{ notifications.count }}
+                        </span>
                     </button>
-
-                    <div id="signupDropdown"
-                        class="w-full absolute top-12 left-0 hidden px-4 py-2 bg-rose-200 border border-slate-200 rounded-xl z-50 cursor-pointer">
-                        <a href="{% url 'userprofile:signup' 'petowner' %}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900">
-                            PetOwner
-                        </a>
-                        <a href="{% url 'userprofile:signup' 'vetstaff' %}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900 cursor-pointer">
-                            VetStaff
-                        </a>
+                    <div id="notificationList"
+                        class="absolute top-full mt-2 w-full hidden px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-lg">
+                        {% if notifications %}
+                        {% for notification in notifications %}
+                        <div id="notification-{{ notification.id }}" class="notification-item py-2 hover:bg-gray-100"
+                            onclick="markAsRead('{{ notification.id }}')">
+                            {{ notification.message }} - click to mark as read
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-center text-gray-500">No new notifications.</p>
+                        {% endif %}
                     </div>
                 </div>
 
+                <!-- User Menu Dropdown for Authenticated Users -->
+                <div class="relative">
+                    <div class="relative">
+                        <button type="button" class="text-sm rounded-full focus:ring-6 focus:ring-gray-300"
+                            id="user-menu-button" aria-expanded="false" onclick="openModal()">
+                            <span class="sr-only">Open user menu</span>
+                            <!-- Conditional user image -->
+                            {% if request.user.is_vetstaff and request.user.vetstaff.image %}
+                            <img class="w-14 h-14 rounded-full" src="{{ request.user.vetstaff.image.url }}"
+                                alt="{{ request.user.username }}">
+                            {% elif request.user.is_petowner and request.user.petowner.image %}
+                            <img class="w-14 h-14  rounded-full" src="{{ request.user.petowner.image.url }}"
+                                alt="{{ request.user.username }}">
+                            {% else %}
+                            <img class="w-14 h-14  rounded-full" src="{% static 'pet_app/2chf_800.jpg' %}"
+                                alt="Default profile picture">
+                            {% endif %}
+                        </button>
+                    </div>
+                    <div id="userModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
+                        <div
+                            class="fixed top-0 right-0 h-full bg-white p-6 rounded-l shadow-lg w-full sm:w-96 overflow-auto z-50">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-bold">Settings</h2>
+                                <button onclick="closeModal()" class="text-lg">X</button>
+                            </div>
+                            <nav>
+                                <ul class="space-y-4">
+                                    <!-- Modal content -->
+                                    <li class="w-full py-1 flex">
+                                        <button
+                                            class="w-full flex flex-row items-center text-sm font-medium text-gray-900">
+                                            <svg class="w-12 pr-1 flex flex-row items-start" fill="#ed719e"
+                                                version="1.1" id="Capa_1" width="20px" height="20px"
+                                                viewBox="0 0 98.205 98.206" xml:space="preserve">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <g>
+                                                        <g>
+                                                            <path
+                                                                d="M64.433,24.98c-6.372,1.368-12.651-2.694-14.017-9.07c-1.365-6.377,2.694-12.65,9.07-14.019 c6.374-1.366,12.65,2.696,14.019,9.069C74.872,17.336,70.81,23.615,64.433,24.98z">
+                                                            </path>
+                                                            <path
+                                                                d="M1.256,76.202l5.308-2.106l8.736-15.392l11.206-8.227l5.057,2.938l5.206-1.895c0.688-1.658,2.322-2.825,4.231-2.825 c10.637,0,16.82-7.592,17.338-14.854c0.354-3.663,3.234-6.686,6.248-8.146c0,0,1.141-0.624,2.439-0.873 c1.241-0.237,2.683-0.245,2.683-0.245l0.035-0.002c4.088,0.117,8.899,2.397,9.919,7.146l5.458,25.482 c0.327,1.521,0.189,2.97-0.266,4.297c-0.067,0.254-5.729,14.242-5.729,14.242h12.827c3.452,0,6.251,2.8,6.251,6.252 s-2.799,6.25-6.251,6.25H69.842c-2.08,0-4.024-1.035-5.188-2.762c-1.161-1.727-1.387-3.915-0.604-5.842l3.515-8.646l-7.604,2.174 L62.824,88.9c0.617,3.396-1.635,6.648-5.03,7.269c-0.378,0.069-0.755,0.104-1.127,0.104c-2.961-0.001-5.592-2.115-6.143-5.132 l-3.878-21.305c-0.576-3.164,1.34-6.246,4.431-7.13l12.312-3.52l-2.001-9.344c-4.518,5.274-11.369,8.021-20.386,8.021 c-1.113,0-2.119-0.412-2.913-1.071l-4.349,1.583L21.811,81.188l0.509,12.287c0.062,1.49-1.097,2.749-2.588,2.812 c-0.039,0.002-0.075,0.002-0.114,0.002c-1.44,0-2.638-1.136-2.697-2.59l-0.326-7.849l-1.292,8.437 c-0.204,1.335-1.354,2.292-2.668,2.292c-0.136,0-0.274-0.009-0.412-0.031c-1.476-0.228-2.487-1.604-2.262-3.08l2.112-13.782 l-3.62-2.058l-5.728,2.273c-0.239,0.096-0.489,0.14-0.732,0.14c-0.792,0-1.541-0.474-1.852-1.256 C-0.265,77.764,0.235,76.606,1.256,76.202z">
+                                                            </path>
+                                                            <path
+                                                                d="M25.419,44.749c-0.351,0.332-0.705,0.666-1.062,0.998c-0.255,0.238,1.198,3.617,1.198,3.617l-10.913,7.895 c-0.735-1.151-1.472-2.307-2.207-3.462c-1.619-2.532-3.162-5.117-5.067-7.449c-0.519-0.634-1.136-1.207-1.784-1.716 c-2.984-2.333-1.129-3.94-0.649-4.22c1.196-0.705,2.516-0.572,3.749,0.078c0.687,0.365,1.367,0.742,2.048,1.122 c0.2,0.111,0.352,0.104,0.541-0.043c0.319-0.242,0.668-0.452,1.008-0.661c1.968-1.196,3.881-0.982,5.986-1.896 c0.713-0.308,5.159-5.405,7.517-4.162c2.571,1.354,2.756,4.174,1.931,6.446C27.231,42.635,26.455,43.778,25.419,44.749z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <a href="{% url 'userprofile:myaccount' %}" class="flex flex-row">
+                                                My Account
+                                            </a>
+                                        </button>
+                                    </li>
+                                    <li class="w-full py-1 flex">
+                                        <button
+                                            class="w-full flex flex-row items-center text-sm font-medium text-gray-900">
+                                            <svg class="w-12 pr-1 flex flex-row items-start" width="20px" height="20px"
+                                                viewBox="0 0 24 24" fill="#ed719e" stroke="#ed719e"
+                                                stroke-width="0.00024000000000000003">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M18.52 4l-1 1H2V4zM2 8v1h11.52l1-1zm4.52 8H2v1h3.655a1.477 1.477 0 0 1 .282-.417zM2 12v1h7.52l1-1zm20.95-6.066a.965.965 0 0 1 .03 1.385L9.825 20.471 5.73 22.227a.371.371 0 0 1-.488-.487l1.756-4.097L20.15 4.491a.965.965 0 0 1 1.385.03zM9.02 19.728l-1.28-1.28-.96 2.24zM20.093 8.79L18.68 7.376 8.382 17.674l1.413 1.414zm1.865-2.445l-.804-.838a.42.42 0 0 0-.6-.007l-1.167 1.17L20.8 8.083l1.152-1.151a.42.42 0 0 0 .006-.587z">
+                                                    </path>
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                </g>
+                                            </svg>
+                                            <a href="{% url 'userprofile:edit_profile' user.id %}"
+                                                class="flex flex-row">
+                                                Edit Your Profile
+                                            </a>
+                                        </button>
+                                    </li>
+                                    <li class="w-full py-1 flex">
+                                        <button
+                                            class="w-full flex flex-row items-center text-sm font-medium text-gray-900">
+                                            <svg class="w-12 pr-1 flex flex-row items-start" width="20px" height="20px"
+                                                viewBox="0 0 48.00 48.00" fill="#ed719e" stroke="#ed719e">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <defs>
+                                                        <style>
+                                                            .a {
+                                                                fill: none;
+                                                                stroke: #ed719e;
+                                                                stroke-linecap: round;
+                                                                stroke-linejoin: round;
+                                                            }
+                                                        </style>
+                                                    </defs>
+                                                    <path class="a"
+                                                        d="M24,25.28a3.26,3.26,0,0,0-1.64,6.07V36h3.32V31.35a3.28,3.28,0,0,0,1.61-2.8v0A3.27,3.27,0,0,0,24,25.28Z">
+                                                    </path>
+                                                    <rect class="a" x="7.38" y="17.77" width="33.23" height="25.73"
+                                                        rx="4.32"></rect>
+                                                    <path class="a"
+                                                        d="M13.35,17.77V15.16a10.66,10.66,0,0,1,21.32,0v2.61"></path>
+                                                </g>
+                                            </svg>
+                                            <a href="{% url 'userprofile:change_password' %}" class="flex flex-row">
+                                                Change your Password
+                                            </a>
+                                        </button>
+                                    </li>
+                                    <li class="w-full py-1 flex">
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <button
+                                                class="w-full flex flex-row items-center text-sm font-medium text-gray-900">
+                                                <svg class="w-12 pr-1 flex flex-row items-start" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#ed719e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-9.5m7.5 3l3-3-3-3m-5-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5a2 2 0 002-2v-1"></path> </g></svg>
+                                                <h4 class="flex flex-row">Logout</h4>
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Links for Unauthenticated Users -->
+                <a href="{% url 'login' %}" class="py-2 px-4  text-white hover:text-orange-300 cursor-pointer">Log
+                    in</a>
+                <!-- Dropdown Button for Sign Up -->
+                <div class="relative inline-block text-left">
+                    <div class="relative flex">
+                        <button id="signupButton"
+                            class=" py-2 px-4 rounded-xl text-white  border-2 border-white hover:text-pink-300 cursor-pointer">
+                            Sign Up
+                        </button>
+
+                        <div id="signupDropdown"
+                            class="w-full absolute top-12 left-0 hidden px-4 py-2 bg-orange-200 border border-slate-200 rounded-xl z-50 cursor-pointer">
+                            <a href="{% url 'userprofile:signup' 'petowner' %}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900">
+                                PetOwner
+                            </a>
+                            <a href="{% url 'userprofile:signup' 'vetstaff' %}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-300 hover:text-gray-900 cursor-pointer">
+                                VetStaff
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <button data-collapse-toggle="mobile-menu-4" type="button"
+                    class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="mobile-menu-4" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4 3a1 1 0 011-1h10a1 1 0 011 1v2H4V3zm1 4h10v10H5V7zm10 1H5v8h10V8z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
             </div>
-            {% endif %}
+            <div class="hidden w-full md:block md:w-auto" id="mobile-menu-4">
+                <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_vetstaff %}
+                    <li>
+                        <a href="{% url 'dashboard:dashboard' %}"
+                            class="block py-2 pr-4 pl-3 text-white rounded md:bg-transparent md:p-0 hover:text-orange-300"
+                            aria-current="page">Dashboard</a>
+                    </li>
+                    <!-- Search Form -->
+                    <form action="{% url 'pets:search_for_pets' %}" method="get" class="flex md:order-2">
+                        <input type="search" name="query" id="search-navbar"
+                            class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search...">
+                        <button type="submit"
+                            class="p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm">
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                    {% elif request.user.is_petowner %}
+                    <li>
+                        <a href="{% url 'dashboard:dashboard' %}"
+                            class="block py-2 pr-4 pl-3 text-white rounded md:bg-transparent md:p-0 hover:text-orange-300"
+                            aria-current="page">Dashboard</a>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+                    {% else %}
+
+                    {% endif %}
+
+                    <!-- Add other links as needed -->
+                </ul>
+            </div>
         </div>
     </nav>
 
     {% block content %}
     {% endblock %}
-
-    <footer class="py-8 bg-gray-200">
-        <div class="flex justify-center items-center">
-            <p class="text-xs text-gray-700">Copyright (c) 2023 - MyFurryFriendsDxLab</p>
-        </div>
-    </footer>
 </body>
 
 </html>
@@ -112,8 +289,16 @@
             };
         }
     }
-
     document.addEventListener('DOMContentLoaded', initDropdownToggles);
+
+    function openModal() {
+        document.getElementById('userModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('userModal').classList.add('hidden');
+    }
+
 
     function getCookie(name) {
         let cookieValue = null;

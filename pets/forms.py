@@ -26,23 +26,43 @@ class PetOwnerForm(forms.ModelForm):
             self.fields['breed'].choices = Pet.BREED_CHOICES_DICT.get(species, [])
 
 
-
-
-
-
-class WeightRecordForm(forms.ModelForm):
+class WeightRecordPetInitialForm(forms.ModelForm):
     class Meta:
         model = WeightRecord
-        fields = ['pet', 'weight', 'date', 'goal_weight', 'notes']
+        fields = ['pet', 'weight', 'date', 'goal_weight', 'notes']  # Ensure 'pet' is included if you intend to manipulate it
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        pet = kwargs.pop('pet', None)
+        super(WeightRecordPetInitialForm, self).__init__(*args, **kwargs)
+
+        # Conditionally manipulate the 'pet' field if it exists
+        if pet and 'pet' in self.fields:
+            self.fields['pet'].queryset = Pet.objects.filter(id=pet.id)  # This sets the queryset to only include the specified pet, effectively "pre-selecting" it if the field is rendered
+            self.fields['pet'].initial = pet  # Set initial value to the specific pet instance
+            self.fields['pet'].widget = forms.HiddenInput()  # Hide the 'pet' field to not render it in the form
+
+class WeightRecordPetForm(forms.ModelForm):
+    class Meta:
+        model = WeightRecord
+        fields = ['pet', 'weight', 'date', 'notes']  # Ensure 'pet' is included if you intend to manipulate it
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Extract the user from the kwargs
-        super(WeightRecordForm, self).__init__(*args, **kwargs)
-        
-        # Now we filter the 'pet' field's queryset to only include pets owned by the user
-        if user is not None:
-            self.fields['pet'].queryset = Pet.objects.filter(petowner=user)
+        pet = kwargs.pop('pet', None)
+        super(WeightRecordPetForm, self).__init__(*args, **kwargs)
+
+        # Conditionally manipulate the 'pet' field if it exists
+        if pet and 'pet' in self.fields:
+            self.fields['pet'].queryset = Pet.objects.filter(id=pet.id)  # This sets the queryset to only include the specified pet, effectively "pre-selecting" it if the field is rendered
+            self.fields['pet'].initial = pet  # Set initial value to the specific pet instance
+            self.fields['pet'].widget = forms.HiddenInput()  # Hide the 'pet' field to not render it in the form
+
+class GoalWeightForm(forms.ModelForm):
+    class Meta:
+        model = WeightRecord
+        fields = ['goal_weight']

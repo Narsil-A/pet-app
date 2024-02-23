@@ -3,31 +3,45 @@
 {% block title %}Pet Services{% endblock %}
 
 {% block content %}
-<div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
 
-    {% if request.user.is_petowner %}
-        <a href="{% url 'services:request_service' %}" class="inline-block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300">Request Services</a>
-    {% endif %}
+        {% if request.user.is_petowner %}
+        <div class="flex p-6">
+            <button
+                class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                    <a href="{% url 'services:request_service' %}" class="w-full flex flex-row justify-center
+                items-center">
+                        Request Services
+                    </a>
+                </span>
+            </button>
+        </div>
+        {% endif %}
 
-    {% if requests_services %}
-    <div class="overflow-x-auto mt-6">
-        <table class="min-w-full bg-white shadow-md rounded-lg">
-            <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">Client Username</th>
-                    <th class="py-3 px-6 text-left">Service</th>
-                    <th class="py-3 px-6 text-left">Pet</th>
-                    <th class="py-3 px-6 text-left">Created At</th>
-                    <th class="py-3 px-6 text-left">Status</th>
-                    <th class="py-3 px-6 text-left">Payment</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-                {% for request_service in requests_services %}
+        {% if requests_services %}
+        <div class="overflow-x-auto mt-6">
+            <table class="min-w-full bg-white shadow-md rounded-lg">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Petowner</th>
+                        <th class="py-3 px-6 text-left">Service</th>
+                        <th class="py-3 px-6 text-left">Pet</th>
+                        <th class="py-3 px-6 text-left">Created At</th>
+                        <th class="py-3 px-6 text-left">Status</th>
+                        <th class="py-3 px-6 text-left">Payment</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    {% for request_service in requests_services %}
                     <tr class="border-b border-gray-200 hover:bg-gray-100 {% cycle '' 'bg-gray-50' %}">
                         <td class="py-3 px-6 text-left whitespace-nowrap">
-                            <a href="{% url 'services:request_detail' request_service.id %}" class="text-blue-600 hover:text-blue-800 transition duration-300">{{ request_service.petowner.username }}</a>
+                            <a href="{% url 'services:request_detail' request_service.id %}"
+                                class="text-blue-600 hover:text-blue-800 transition duration-300">
+                                {{ request_service.petowner.first_name }} {{ request_service.petowner.last_name }}</a>
                         </td>
                         <td class="py-3 px-6 text-left">{{ request_service.service.name }}</td>
                         <td class="py-3 px-6 text-left">{{ request_service.pet.name }}</td>
@@ -35,18 +49,20 @@
                         <td class="py-3 px-6 text-left">{{ request_service.latest_status_update }}</td>
                         <td class="py-3 px-6 text-left">
                             {% if request_service.paid %}
-                                Paid
+                            Paid
                             {% else %}
-                                Not Paid
+                            Not Paid
                             {% endif %}
                         </td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
         <p class="text-gray-600 mt-6">There are no diagnostic services in the database yet.</p>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
+
 {% endblock %}

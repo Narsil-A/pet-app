@@ -3,61 +3,80 @@
 {% block title %} My Account {% endblock %}
 
 {% block content %}
+{% load static %}
+<div class="w-full h-full p-32 items-center">
+    <div class="container w-full flex flex-col p-4 bg-white shadow-md rounded-lg p-6">
+        <h1 class="flex p-4 text-2xl font-semibold text-gray-800">My Account</h1>
 
-<div class="container mx-auto p-6">
-    <h1 class="mb-6 text-2xl font-semibold text-gray-800">My Account</h1>
-
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="mb-4">
-            <strong class="block text-gray-700">Username:</strong>
-            <span class="text-gray-600">{{ request.user.username }}</span>
+        <div class="w-full flex flex-row">
+            <div class="w-full flex flex-row p-2">
+                <div class="w-[40%] flex pr-2">
+                    {% if request.user.is_vetstaff and request.user.vetstaff.image %}
+                    <img class="rounded w-full h-auto" src="{{ request.user.vetstaff.image.url }}"
+                        alt="{{ request.user.username }}">
+                    {% elif request.user.is_petowner and request.user.petowner.image %}
+                    <img class="rounded w-full h-auto" src="{{ request.user.petowner.image.url }}"
+                        alt="{{ request.user.username }}">
+                    {% else %}
+                    <img class="rounded w-full h-auto" src="{% static 'pet_app/2chf_800.jpg' %}"
+                        alt="Default profile picture">
+                    {% endif %}
+                </div>
+                <div class="w-[60%] flex flex-col pl-2">
+                    <div class="w-full py-1 flex border-b border-slate-300">
+                        <strong class="block text-xl font-light text-gray-700 pr-3">Username: </strong>
+                        <span class="text-xl font-light text-gray-600"> {{ request.user.username }} </span>
+                    </div>
+                    <div class="w-full pt-4 flex flex-col lg:flex-row lg:flex-wrap">
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3">First Name:</strong>
+                            <span class="text-gray-600">{{ request.user.first_name }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3">Last Name:</strong>
+                            <span class="text-gray-600">{{ request.user.last_name }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3">Email:</strong>
+                            <span class="text-gray-600">{{ request.user.email }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3">Phone Number:</strong>
+                            <span class="text-gray-600">{{ request.user.phone_number }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3"> State:</strong>
+                            <span class="text-gray-600">{{ request.user.state }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3"> country:</strong>
+                            <span class="text-gray-600">{{ request.user.country }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3"> City:</strong>
+                            <span class="text-gray-600">{{ request.user.city }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3"> Zip Code:</strong>
+                            <span class="text-gray-600">{{ request.user.zip_code }}</span>
+                        </div>
+                        <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                            <strong class="block text-gray-700 pr-3"> Street Address:</strong>
+                            <span class="text-gray-600">{{ request.user.address }}</span>
+                        </div>
+                        {% if user.is_vetstaff %}
+                        <div class="flex p-1">
+                            <strong class="block text-gray-700 pr-3">Position:</strong>
+                            <span class="text-gray-600">{{ request.user.position }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            {% endif %}
         </div>
-
-        <div class="mb-4">
-            <strong class="block text-gray-700">Email:</strong>
-            <span class="text-gray-600">{{ request.user.email }}</span>
-        </div>
-
-        <div class="mb-4">
-            <strong class="block text-gray-700">First Name:</strong>
-            <span class="text-gray-600">{{ request.user.first_name }}</span>
-        </div>
-
-        <div class="mb-4">
-            <strong class="block text-gray-700">Last Name:</strong>
-            <span class="text-gray-600">{{ request.user.last_name }}</span>
-        </div>
-
-        <div class="mb-4">
-            <strong class="block text-gray-700">Address:</strong>
-            <span class="text-gray-600">{{ request.user.address }}</span>
-        </div>
-        
-        {% if lab_staff %}
-        <div class="mb-4">
-            <strong class="block text-gray-700">Position:</strong>
-            <span class="text-gray-600">{{ lab_staff.position }}</span>
-        </div>
-        <div class="mb-4">
-            <strong class="block text-gray-700">Profession:</strong>
-            <span class="text-gray-600">{{ lab_staff.profession }}</span>
-        </div>
-        <div class="mb-4">
-            <strong class="block text-gray-700">Degrees:</strong>
-            <span class="text-gray-600">{{ lab_staff.degrees }}</span>
-        </div>
-        {% else %}
-        <p class="text-gray-600 italic">You are not registered as Lab Staff.</p>
-        {% endif %}
     </div>
-
-    <form action="{% url 'logout' %}" method="post" class="mt-6">
-        {% csrf_token %}
-        <button type="submit"
-            class="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75">
-            Logout
-        </button>
-    </form>
 </div>
+
 
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<!-- Weight Records -->
+<div class="w-full h-full p-32 flex items-center justify-center">
+    <div class="container w-[60%] p-8 flex flex-col bg-white shadow-lg rounded-lg">
+        <h2 class="font-semibold">Edit Goal Weight for {{ pet.name }}</h2>
+        <form class="flex flex-col p-8" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="flex flex-col p-8 items-center justify-center">
+                <button
+                    class="h-fit p-[2px] flex flex-row items-center justify-center font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                    <span
+                        class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                        Save changes
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

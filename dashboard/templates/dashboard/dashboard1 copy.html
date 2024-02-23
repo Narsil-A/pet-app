@@ -1,0 +1,254 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% load static %}
+<script src="{% static 'pet_app/js/dashboardCard.js' %}"></script>
+
+<div class="w-full h-full flex py-6 px-6">
+    <div class="relative w-full h-full bg-transparent">
+        <!-- Background Image -->
+        <img src="{% static 'pet_app/2chf_800.jpg' %}" alt="Laboratory Image"
+            class="absolute top-0 left-0 w-full h-full opacity-30 -z-10">
+        <!-- Check for Lab Staff -->
+        {% if request.user.is_vetstaff %}
+        <div class="container flex flex-col border border-red-500">
+            <div class="w-full pb-2 flex flex-row">
+                <div
+                    class="w-[35%] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                        id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
+                        <li class="me-2">
+                            <button id="appointments-tab" data-tabs-target="#appointments" type="button" role="tab"
+                                aria-controls="appointments" aria-selected="true"
+                                class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">Appointments</button>
+                        </li>
+                        <li class="me-2">
+                            <button id="create_slots-tab" data-tabs-target="#create_slots" type="button" role="tab"
+                                aria-controls="create_slots" aria-selected="false"
+                                class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">Create
+                                Slots</button>
+                        </li>
+                        <li class="me-2">
+                            <button id="slots-tab" data-tabs-target="#slots" type="button" role="tab"
+                                aria-controls="slots" aria-selected="false"
+                                class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">Slots</button>
+                        </li>
+                    </ul>
+                    <div id="defaultTabContent">
+                        <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="appointments"
+                            role="tabpanel" aria-labelledby="appointments-tab">
+                            <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                                Appointment Management</h2>
+                            <p class="mb-3 text-gray-500 dark:text-gray-400">Efficiently manage your veterinary
+                                appointments with our streamlined system. Quickly access and review upcoming
+                                appointments, ensuring every pet receives timely care.</p>
+                            <a href="{% url 'appointments:appointments_list' %}"
+                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+                                See the list
+                                <svg class=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="create_slots"
+                            role="tabpanel" aria-labelledby="create_slots-tab">
+                            <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Create
+                                New Appointment Slots</h2>
+                            <p class="mb-3 text-gray-500 dark:text-gray-400">Tailor your schedule to meet the needs of
+                                your veterinary practice. Easily create new appointment slots that accommodate both
+                                routine check-ups and emergency cases.</p>
+                            <a href="{% url 'appointments:create_slot' %}"
+                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+                                Create slots
+                                <svg class=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="slots" role="tabpanel"
+                            aria-labelledby="slots-tab">
+                            <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">View
+                                Appointment Slots</h2>
+                            <p class="mb-3 text-gray-500 dark:text-gray-400">Get a comprehensive view of your scheduled
+                                and available slots. This holistic view helps in planning and optimizing your veterinary
+                                practice's workflow.</p>
+                            <a href="{% url 'appointments:slots_view' %}"
+                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+                                View slots
+                                <svg class=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="w-[35%] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                        id="defaultTab1" data-tabs-toggle="#defaultTabContent1" role="tablist">
+                        <li class="me-2">
+                            <button id="services-tab" data-tabs-target="#services" type="button" role="tab"
+                                aria-controls="services" aria-selected="true"
+                                class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">Services</button>
+                        </li>
+                        <li class="me-2">
+                            <button id="request_list-tab" data-tabs-target="#request_list" type="button" role="tab"
+                                aria-controls="request_list" aria-selected="false"
+                                class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">Requested
+                                Services </button>
+                        </li>
+                    </ul>
+                    <div id="defaultTabContent1">
+                        <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="services"
+                            role="tabpanel" aria-labelledby="services-tab">
+                            <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                                Comprehensive Veterinary Services</h2>
+                            <p class="mb-3 text-gray-500 dark:text-gray-400">Offer a full range of veterinary services
+                                including advanced diagnostics, grooming, and medical visits. Equip your practice with
+                                modern imaging technologies
+                                like echocardiograms and x-rays to provide top-notch care.</p>
+                            <a href="{% url 'services:list' %}"
+                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+                                See the list
+                                <svg class=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="request_list"
+                            role="tabpanel" aria-labelledby="request_list-tab">
+                            <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Manage
+                                Service Requests</h2>
+                            <p class="mb-3 text-gray-500 dark:text-gray-400">Streamline the management of new service
+                                requests. From routine health checks to urgent diagnostic needs,
+                                ensure efficient scheduling and response to all client requirements.</p>
+                            <a href="{% url 'services:request_list' %}"
+                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+                                See the list
+                                <svg class=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif request.user.is_petowner %}
+        <div class="container flex flex-col border border-red-500">
+            <div class="w-full pb-2 flex flex-row">
+                <div class="w-[75%] pr-2">
+                    <div class="w-full flex flex-col border border-red-500 rounded-md">
+                        <!-- Pet Cards Section -->
+                        <div class="w-[5000px] py-2 flex flex-row overflow-hidden">
+                            {% for pet in pets %}
+                            <div class="w-fit px-2 flex">
+                                <div class="w-full flex flex-col rounded-lg shadow">
+                                    <!-- Make image clickable and lead to pet details -->
+                                    <a href="{% url 'pets:detail' pet.id %}">
+                                        <img src="{{ pet.image.url }}" alt="{{ pet.name }}"
+                                            class="w-32 h-32 object-cover rounded-t-lg">
+                                    </a>
+                                    <div class="w-full flex">
+                                        <h3 class="w-full text-center font-semibold">{{ pet.name }}</h3>
+                                        <!-- Other pet details can go here -->
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Add more pets button -->
+                        <div class="h-fit flex">
+                            <a href="{% url 'pets:add_pet' %}"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md">
+                                Add More Pets
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[25%] pl-2   border border-red-500">
+                    <div class="bg-white w-fit rounded-xl shadow-md p-4 flex">
+                        <div class="w-fit grid-cols-1 md:grid-cols-2 lg:grid-rows-4 gap-4">
+                            <!-- Request Services Button -->
+                            <div class="py-2 px-4">
+                                <a href="{% url 'services:request_service' %}"
+                                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Request
+                                    Services</a>
+                            </div>
+                            <!-- Payment Button -->
+                            <div class="py-2 px-4">
+                                <a href="{% url 'services:payment' %}"
+                                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Payment</a>
+                            </div>
+                            <!-- Appointments List Button -->
+                            <div class="py-2 px-4">
+                                <a href="{% url 'appointments:appointments_list' %}"
+                                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Appointments
+                                    List</a>
+                            </div>
+                            <!-- Requested List Button -->
+                            <div class="py-2 px-4">
+                                <a href="{% url 'services:request_list' %}"
+                                    class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Requested
+                                    List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full pt-2 flex flex-row">
+                <div class="w-[50%] pr-2  border border-red-500">
+                    <div class="bg-white w-fit rounded-xl shadow-md p-4 flex">
+                        <!-- Requested List Button -->
+                        <div class="py-2 px-4">
+                            <a href="{% url 'medicalvisit:medical_visit_list' %}"
+                                class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Medical
+                                Visit Records
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[50%] pr-2  border border-red-500">
+                    <div class="bg-white w-fit rounded-xl shadow-md p-4 flex">
+                        <!-- Requested List Button -->
+                        <div class="py-2 px-4">
+                            <a href="{% url 'pets:add_weight_record'%}"
+                                class="block py-2 px-4 bg-blue-600 rounded-xl text-white hover:bg-blue-700 transition duration-300 text-center">Add
+                                Weight Record
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Fallback for other users -->
+        {% else %}
+        <div class="w-full bg-gray-100 rounded-xl p-4">
+            <h2 class="text-lg">General Information</h2>
+            <!-- Add general information accessible to all users -->
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Example of passing data from Django to JavaScript
+    const cardData = ('{{ my_card_data|safe }}');
+    createCard('cardId', cardData);
+</script>
+
+
+{% endblock %}

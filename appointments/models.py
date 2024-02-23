@@ -63,7 +63,6 @@ def book_slot(slot_id):
 
 class Appointment(models.Model):
     petowner = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='appointments')
     pet_request_service = models.ForeignKey(PetRequestService, on_delete=models.PROTECT, related_name='appointments')
     slot = models.ForeignKey(AppointmentSlot, on_delete=models.CASCADE, related_name='appointments')
     notes = models.TextField(blank=True, null=True)

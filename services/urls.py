@@ -15,8 +15,8 @@ urlpatterns = [
     path('cancel/<int:request_id>/', views.cancel_service_request, name='cancel_service_request'),
     path('request-service-list/', views.request_service_list, name='request_list'),
     path('<int:request_id>/request-detail/', views.request_detail, name='request_detail'),
-    path('make-payment', views.make_payment, name='payment'),
-    path('payment-successful', views.payment_successful, name='payment_successful'),
-    path('payment-cancelled', views.payment_cancelled, name='payment_cancelled'),
-    path('stripe-webhook', views.stripe_webhook, name='stripe_webhook'),
+    path('make-payment/', views.make_payment, name='payment'),
+    path('payment-successful/', views.payment_successful, name='payment_successful'),
+    path('payment-cancelled/', views.payment_cancelled, name='payment_cancelled'),
+    path('stripe-webhook/', views.stripe_webhook, name='stripe_webhook'),
 ]

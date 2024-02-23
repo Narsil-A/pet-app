@@ -4,28 +4,12 @@
 
 {% block content %}
 
-<div style="background-image: url(' static/labservices/furryfriendsdx.png' )"
-    class="relative w-full h-full bg-no-repeat bg-cover bg-transparent">
-
-
-    <div class="flex flex-wrap items-center -mx-4">
-        <!-- Text Column -->
-        <div class="w-full md:w-1/2 px-4">
-            <h1 class="text-2xl md:text-4xl font-semibold text-gray-800 mb-4">Welcome to My pet app</h1>
-            <p class="text-gray-600 mb-6">
-                Providing state-of-the-art diagnostic services to safeguard animal health and public safety. Our
-                expert
-                team utilizes the latest techniques in serology, PCR, and culture methods to deliver accurate and
-                reliable results.
-            </p>
-            <a href="{% url 'about' %}"
-                class="inline-block bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-blue-600 transition-colors z-50 cursor-pointer">Learn
-                More</a>
-        </div>
-
-        <!-- Image Column -->
-
+<div style="background-image: url(' static/pet_app/bg5.jpg' )"
+    class="relative w-screen h-screen -mt-16 bg-cover bg-center">
+</div>
+<footer class="w-full h-16 py-4 flex bg-transparent">
+    <div class="w-full flex justify-center items-center">
+        <p class="w-fit text-xs text-gray-700">Copyright (c) 2023 - Petz App</p>
     </div>
-</div>
-</div>
+</footer>
 {% endblock %}

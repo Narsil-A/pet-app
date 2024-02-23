@@ -3,23 +3,26 @@
 {% block title %} Slots Appointments {% endblock %}
 
 {% block content %}
-<div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-4">Appointment Slots</h1>
-    <ul class="list-disc pl-5">
-        {% for slot in slots_appointments %}
-        <li class="mb-4 border-b border-gray-200 pb-4">
-            <p><span class="font-semibold">Date:</span> {{ slot.date }}</p>
-            <p><span class="font-semibold">Start Time:</span> {{ slot.start_time }}</p>
-            <p><span class="font-semibold">End Time:</span> {{ slot.end_time }}</p>
-            <p><span class="font-semibold">Booked:</span> {{ slot.is_booked }}</p>
-            <p><span class="font-semibold">Vet Staff:</span> {{ slot.vet_staff }}</p>
-            <p><span class="font-semibold">Service Type:</span> {{ slot.service_type }}</p>
-            <a href="{% url 'appointments:delete_slot' slot.id %}"
-                class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition duration-300">Delete</a>
-        </li>
-        {% empty %}
-        <li class="text-gray-700">No appointment slots available.</li>
-        {% endfor %}
-    </ul>
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-4">Appointment Slots</h1>
+        <ul class="list-disc pl-5">
+            {% for slot in slots_appointments %}
+            <li class="mb-4 border-b border-gray-200 pb-4">
+                <p><span class="font-semibold">Date:</span> {{ slot.date }}</p>
+                <p><span class="font-semibold">Start Time:</span> {{ slot.start_time }}</p>
+                <p><span class="font-semibold">End Time:</span> {{ slot.end_time }}</p>
+                <p><span class="font-semibold">Booked:</span> {{ slot.is_booked }}</p>
+                <p><span class="font-semibold">Vet Staff:</span> {{ slot.vet_staff }}</p>
+                <p><span class="font-semibold">Service Type:</span> {{ slot.service_type }}</p>
+                <a href="{% url 'appointments:delete_slot' slot.id %}"
+                    class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition duration-300">Delete</a>
+            </li>
+            {% empty %}
+            <li class="text-gray-700">No appointment slots available.</li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
+
 {% endblock %}

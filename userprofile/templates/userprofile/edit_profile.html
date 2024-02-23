@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %} The Pets App {% endblock %}
+
+{% block content %}
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="w-full min-h-full flex flex-col justify-center items-center overflow-y-auto">
+        <div class="w-[70%] p-8 flex flex-col justify-between bg-white border border-slate-200 rounded-xl">
+            <h1 class="w-full text-xl text-center font-bold">
+                Edit You Account Data
+            </h1>
+            <!-- Ensure the form action is set correctly -->
+            <form class="w-full pt-2 flex flex-col justify-between" method="post"
+                action="{% url 'userprofile:edit_profile' user.id %}"> <!-- Adjust the URL as necessary -->
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+                    {{ field }} <!-- This will render the country field as a dropdown -->
+                    {% if field.help_text %}
+                    <p class="mt-2 text-sm text-gray-500">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <p class="text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {{ form.media }} <!-- Important for custom widgets that require JS or CSS -->
+                <button
+                    class="w-full py-2 px-4 bg-blue-500 text-white flex flex-row justify-center items-center rounded-xl"
+                    type="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

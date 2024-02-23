@@ -6,7 +6,7 @@ from .models import User, Notification, VetStaff, PetOwner
 
 class CustomUserAdmin(UserAdmin):
     model = User
-    list_display = ['username', 'email', 'is_vetstaff', 'petowner',]
+    list_display = ['username', 'email', 'is_vetstaff', 'is_petowner',]
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Notification)

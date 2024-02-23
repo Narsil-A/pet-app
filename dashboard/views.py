@@ -28,7 +28,7 @@ def dashboard(request):
     else:
         context['user_type'] = 'other'
 
-    return render(request, 'dashboard/dashboard.html', context)
+    return render(request, 'dashboard/dashboard1.html', context)
 
 
 

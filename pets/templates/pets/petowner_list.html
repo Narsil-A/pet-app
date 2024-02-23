@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Pet Owners{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="w-full h-full p-16 flex justify-center">
+    <div class="container">
+        <h1>Pet Owners Directory</h1>
+        {% for petowner in petowners %}
+        <div class="petowner">
+            <h2>{{ petowner.user.get_full_name }}</h2>
+            <!-- Display other pet owner details here -->
+            <h3>Pets:</h3>
+            <ul>
+                {% for pet in petowner.pets.all %}
+                <li>{{ pet.name }} - {{ pet.species }}</li>
+                <!-- Include more pet details as needed -->
+                {% endfor %}
+            </ul>
+        </div>
+        {% empty %}
+        <p>No pet owners found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
