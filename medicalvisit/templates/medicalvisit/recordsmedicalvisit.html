@@ -1,46 +1,65 @@
 {% extends 'core/base.html' %}
 
+
 {% block title %}Medical Visits{% endblock %}
 
 {% block content %}
-<div class="w-full h-full p-16 flex justify-center">
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-6">Medical Visits</h1>
+{% load custom_filters %}
+
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6">Medical Visits Lists</h1>
 
         {% if medical_visits %}
-        <div class="overflow-x-auto mt-6">
-            <table class="min-w-full bg-white shadow-md rounded-lg">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th class="py-3 px-6 text-left">Pet</th>
-                        <th class="py-3 px-6 text-left">Date of Visit</th>
-                        <th class="py-3 px-6 text-left">Symptoms</th>
-                        <th class="py-3 px-6 text-left">Diagnosis</th>
-                        <th class="py-3 px-6 text-left">Treatment</th>
-                        <th class="py-3 px-6 text-left">Vet Staff</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-600 text-sm font-light">
-                    {% for visit in medical_visits %}
-                    <tr class="border-b border-gray-200 hover:bg-gray-100 {% cycle '' 'bg-gray-50' %}">
-                        <td class="py-3 px-6 text-left">
-                            <a href="{% url 'medicalvisit:medical_visit_detail'  medical_visit_id=visit.id %}"
-                                class="text-blue-600 hover:text-blue-800 transition duration-300">{{ visit.pet.name }}</a>
-                        </td>
-                        <td class="py-3 px-6 text-left">{{ visit.date_of_visit|date:"Y-m-d H:i" }}</td>
-                        <td class="py-3 px-6 text-left">{{ visit.symptoms }}</td>
-                        <td class="py-3 px-6 text-left">{{ visit.diagnosis }}</td>
-                        <td class="py-3 px-6 text-left">{{ visit.treatment }}</td>
-                        <td class="py-3 px-6 text-left">{{ visit.vet_staff.username }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="w-full flex justify-between items-center bg-gray-300">
+            <div class="w-[5%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Pet</p>
+            </div>
+            <div class="w-[20%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Symptoms</p>
+            </div>
+            <div class="w-[20%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Diagnosis</p>
+            </div>
+            <div class="w-[20%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Treatment</p>
+            </div>
+            <div class="w-[10%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Vet Staff</p>
+            </div>
+            <div class="w-[15%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Date</p>
+            </div>
         </div>
-        {% else %}
-        <p class="text-gray-600 mt-6">There are no medical visits recorded yet.</p>
-        {% endif %}
+        {% for visit in medical_visits %}
+        <div class="w-full flex justify-between items-center {% cycle '' 'bg-gray-100' %}">
+            <div class="w-[5%] py-2 flex">
+                <p class="w-full text-center">
+                    <a href="{% url 'medicalvisit:medical_visit_detail'  medical_visit_id=visit.id %}">{{ visit.pet.name }}</a>
+                </p>
+            </div>
+            <div class="w-[20%] py-2">
+                <p class="w-full px-1 text-center"> {{ visit.symptoms|first_ten_words }}</p>
+            </div>
+            <div class="w-[20%] py-2">
+                <p class="w-full px-1 text-center"> {{ visit.diagnosis|first_ten_words }}</p>
+            </div>
+            <div class="w-[20%] py-2">
+                <p class="w-full px-1 text-center"> {{ visit.treatment|first_ten_words }}</p>
+            </div>
+            <div class="w-[10%] py-2">
+                <p class="w-full px-1 text-justify"> {{ visit.vet_staff.username|first_ten_words }}</p>
+            </div>
+            <div class="w-[15%] py-2">
+                <p class="w-full px-1 text-center">{{ visit.date_of_visit|date:"Y-m-d H:i" }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
+    {% else %}
+    <p class="text-gray-600 mt-6">There are no medical visits recorded yet.</p>
+    {% endif %}
 </div>
+
 
 {% endblock %}

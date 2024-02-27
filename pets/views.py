@@ -204,7 +204,7 @@ def weighttracker(request):
 @login_required
 def petowner_detail(request, petowner_id):
     petowner = get_object_or_404(PetOwner, pk=petowner_id)
-    pets = Pet.objects.filter(petowner=petowner)
+    pets = Pet.objects.filter(petowner=petowner_id)
 
     context = {
         'petowner': petowner, 

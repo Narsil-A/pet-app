@@ -3,23 +3,34 @@
 {% block title %} Add Diagnostic Services {% endblock %}
 
 {% block content %}
-<div class="w-full h-full p-16 flex justify-center">
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Add Diagnostic Services</h1>
+{% load widget_tweaks %}
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="container w-[60%] p-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 class="text-2xl font-bold mb-4">Add a Service</h1>
 
-        <form method="post" action="." class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form method="post" enctype="multipart/form-data" action="." class="p-6">
             {% csrf_token %}
 
+            {% for field in form %}
             <div class="mb-4">
-                {{ form.as_p }}
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                {% if field.errors %}
+                <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                {% endif %}
             </div>
-
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="submit">
-                Submit
-            </button>
-
+            {% endfor %}
+            <div class="w-full p-4 flex flex-row justify-center">
+                <button
+                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                    <span
+                        class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                            Add Service
+                    </span>
+                </button>
+            </div>
         </form>
     </div>
 </div>

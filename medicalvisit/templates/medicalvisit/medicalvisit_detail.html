@@ -1,10 +1,10 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="w-[75%] p-16 flex items-center justify-center">
-    <div class="container p-16">
+<div class="w-[75%] p-32 flex items-center justify-center">
+    <div class="container p-16 bg-white rounded-lg shadow-md">
         <h1 class="p-2 text-2xl font-bold mb-2">Medical Visit Details</h1>
-        <div class="bg-white p-12 rounded-lg shadow-md overflow-hidden">
+        <div class="p-12  overflow-hidden">
             <div class="p-4">
 
                 <p class="p-2 text-md text-gray-700"><strong>Pet Name:</strong> {{ medical_visit.pet.name }}</p>

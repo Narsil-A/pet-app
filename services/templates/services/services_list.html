@@ -3,37 +3,75 @@
 {% block title %} lab services {% endblock %}
 
 {% block content %}
-<div class="w-full h-full p-16 flex justify-center">
-    <div class="py-6 px-6">
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
 
-        <h1 class="mb-4 text-xl">Diagnostic Services</h1>
-
-        <a href="{% url 'services:add_service' %}" class="inline-block py-4 px-6 bg-blue-600 rounded-xl text-white">Add
-            Diagnostic Services</a>
-
+        <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
         {% if services %}
-        <div class="mt-6 flex justify-between">
-            <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Name</p>
-            <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Description</p>
-            <p class="py-4 px-2 bg-gray-200 font-semibold w-full">cost in dollars</p>
-            <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Duration in days</p>
-            <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Created by</p>
+        <div class="w-full flex justify-between items-center bg-gray-300">
+            <div class="w-[25%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Name</p>
+            </div>
+            <div class="w-[30%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Description</p>
+            </div>
+            <div class="w-[15%] py-4 flex justify-center items-center">
+                <p class="font-semibold">cost in dollars</p>
+            </div>
+            <div class="w-[15%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Duration in days</p>
+            </div>
+            <div class="w-[15%] py-4 flex justify-center items-center">
+                <p class="font-semibold">Created by</p>
+            </div>
         </div>
-
         {% for service in services %}
-        <div class="flex justify-between">
-            <p class="py-2 px-2 w-full {% cycle 'bg-gray-100' '' %}">
-                <a href="{% url 'services:detail' service.id %}">{{ service.name }}</a>
-            </p>
-            <p class="py-2 px-2 w-full {% cycle 'bg-gray-100' '' %}"> {{ service.description}}</p>
-            <p class="py-2 px-2 w-full {% cycle 'bg-gray-100' '' %}"> {{ service.cost}}</p>
-            <p class="py-2 px-2 w-full {% cycle 'bg-gray-100' '' %}"> {{ service.duration}}</p>
-            <p class="py-2 px-2 w-full {% cycle 'bg-gray-100' '' %}"> {{ service.created_by}}</p>
+        <div class="w-full flex justify-between items-center {% cycle '' 'bg-gray-100' %}">
+            <div class="w-[25%] py-2 flex">
+                <p class="w-full text-center">
+                    <a href="{% url 'services:detail' service.id %}">{{ service.name }}</a>
+                </p>
+            </div>
+            <div class="w-[30%] py-2 flex justify-center items-center">
+                <p class="w-full px-1 text-justify"> {{ service.description}}</p>
+            </div>
+            <div class="w-[15%] py-2">
+                <p class="w-full px-1 text-center"> {{ service.cost}}</p>
+            </div>
+            <div class="w-[15%] py-2">
+                <p class="w-full px-1 text-center"> {{ service.duration}}</p>
+            </div>
+            <div class="w-[15%] py-2">
+                <p class="w-full px-1 text-center"> {{ service.created_by}}</p>
+            </div>
         </div>
         {% endfor %}
-
+        <div class="w-full p-4 flex flex-row justify-center">
+            <button
+                class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                    <a href="{% url 'services:add_service' %}" class="w-full flex flex-row justify-center
+                items-center">
+                        Add a Services
+                    </a>
+                </span>
+            </button>
+        </div>
         {% else %}
         <p class="mt-6">there are not Diagnostic services in the databases yet</p>
+        <div class="w-full p-4 flex flex-row justify-center">
+            <button
+                class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                    <a href="{% url 'services:request_service' %}" class="w-full flex flex-row justify-center
+                items-center">
+                        Request Services
+                    </a>
+                </span>
+            </button>
+        </div>
         {% endif %}
 
     </div>

@@ -78,7 +78,7 @@ class Pet(models.Model):
     medical_history = models.ManyToManyField('MedicalHistory', blank=True)
 
     def __str__(self):
-        return f"{self.name} ({self.species})"
+        return f"{self.name} ({self.species}) ({self.petowner})"
 
 
 

@@ -24,21 +24,392 @@
     <!-- Check for Lab Staff -->
     {% if request.user.is_vetstaff %}
     <div class="container w-full h-[620px] flex flex-wrap justify-center">
-        <div id="dynamicCardContainer1"
-            class="w-[48%] flex gap-5 bg-white  border border-gray-300 rounded-lg shadow-lg">
-            <!-- Dynamic cards will be inserted here -->
-        </div>
-        <div id="dynamicCardContainer2"
-            class="w-[48%] flex gap-5 bg-white  border border-gray-300 rounded-lg shadow-lg">
-            <!-- Dynamic cards will be inserted here -->
-        </div>
-        <div id="dynamicCardContainer3"
-            class="w-[48%] flex gap-5 bg-white  border border-gray-300 rounded-lg shadow-lg">
-            <!-- Dynamic cards will be inserted here -->
-        </div>
-        <div id="dynamicCardContainer4"
-            class="w-[48%] flex gap-5 bg-white  border border-gray-300 rounded-lg shadow-lg">
-            <!-- Dynamic cards will be inserted here -->
+        <div
+            class="container w-full h-[650px] flex flex-col lg:flex-row items-center justify-center borde border-red-500">
+            <div class="w-full lg:w-[50%] h-full lg:pr-2 pb-2 lg:pb-0 flex flex-col">
+                <div class="w-full h-[140px] lg:h-1/2 pb-4 flex">
+                    <div class="w-full p-12 flex flex-col bg-white  border border-gray-300 rounded-lg shadow-lg">
+                        <h2 class="p-2 text-2xl font-semibold text-justify text-gray-600">
+                            Offers Services
+                        </h2>
+                        <p class="p-2 text-justify text-gray-600">
+                            Provide comprehensive veterinary services, from advanced diagnostics and grooming to medical
+                            visits, with the latest imaging technology for exceptional care.
+                        </p>
+                        <div class="flex flex-row p-4">
+                            <div class="w-full flex flex-row justify-right items-center pr-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/services/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg width="25px" height="25px" viewBox="0 0 100 100" data-name="Layer 1"
+                                                id="Layer_1" stroke="#ed719e">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke="#CCCCCC" stroke-width="2"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1 {
+                                                                stroke: #ed719e;
+                                                                stroke-linecap: round;
+                                                                stroke-linejoin: round;
+                                                                stroke-width: 2.4;
+                                                            }
+                                                        </style>
+                                                    </defs>
+                                                    <path class="cls-1"
+                                                        d="M60.15,28.6a17,17,0,0,1-1.3,6,20,20,0,0,1-1.7,3.4c-1.84,3-4.38,5.24-7.17,5.24a5.48,5.48,0,0,1-2.24-.49A11.5,11.5,0,0,1,43,38.19a20.25,20.25,0,0,1-1.81-3.64A17.58,17.58,0,0,1,40,28.6,8.11,8.11,0,0,1,40,27.39l.12-.32s9.62-.22,13-5.42c.45.12.93.24,1.41.38a7.66,7.66,0,0,0,5.27,4.56l.18.46h0a2.21,2.21,0,0,1,0,.37A7.58,7.58,0,0,1,60.15,28.6Z">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M41.18,34.55a1.72,1.72,0,0,1-1,.34A4.3,4.3,0,0,1,37.34,33h0a4.29,4.29,0,0,1-1-2.35,3.69,3.69,0,0,1,1.58-3.06h0a1.93,1.93,0,0,1,.38-.19,2.22,2.22,0,0,1,.82-.16,3,3,0,0,1,.91.16A8.11,8.11,0,0,0,40,28.6,17.58,17.58,0,0,0,41.18,34.55Z">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M63.7,30.72c0,1.63-2.25,4.23-3.88,4.23a1.73,1.73,0,0,1-1-.34h0a17.62,17.62,0,0,0,1.26-5.94A7,7,0,0,0,60,27.45l0,0a3,3,0,0,1,.86-.14,2.18,2.18,0,0,1,.92.21A3.57,3.57,0,0,1,63.7,30.72Z">
+                                                    </path>
+                                                    <polygon class="cls-1"
+                                                        points="60.3 54.82 62.65 58.99 50.01 77.29 53.76 62.95 58.21 45.97 65.21 51.79 60.3 54.82">
+                                                    </polygon>
+                                                    <polygon class="cls-1"
+                                                        points="37.35 58.99 39.71 54.82 34.79 51.79 41.8 45.97 46.28 63.05 50.01 77.29 37.35 58.99">
+                                                    </polygon>
+                                                    <polygon class="cls-1"
+                                                        points="53.76 62.95 50.01 77.29 46.28 63.05 50.11 48.59 53.76 62.95">
+                                                    </polygon>
+                                                    <path class="cls-1"
+                                                        d="M49.92,84.22H25.72V66.4a15.1,15.1,0,0,1,5.46-11.62L41.79,46l8.32,2.61,8-2.61h.11l10.61,8.81A15.1,15.1,0,0,1,74.28,66.4V84.22H50.08">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M38.61,80H41V73.16a5.81,5.81,0,0,0-5.81-5.81h0a5.82,5.82,0,0,0-5.82,5.81V80h2.47">
+                                                    </path>
+                                                    <line class="cls-1" x1="65.21" x2="65.21" y1="70.75" y2="51.79">
+                                                    </line>
+                                                    <line class="cls-1" x1="35.18" x2="35.18" y1="67.35" y2="51.47">
+                                                    </line>
+                                                    <circle class="cls-1" cx="65.21" cy="73.69" r="2.94"></circle>
+                                                    <path class="cls-1"
+                                                        d="M47.74,42.76H35s2.17-7,2.3-9.76a4.3,4.3,0,0,0,2.85,1.89,1.72,1.72,0,0,0,1-.34A20.25,20.25,0,0,0,43,38.19,11.5,11.5,0,0,0,47.74,42.76Z">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M52.22,42.76h12.7s-2.17-7-2.3-9.76a4.3,4.3,0,0,1-2.85,1.89,1.72,1.72,0,0,1-1-.34A20.25,20.25,0,0,1,57,38.18,11.59,11.59,0,0,1,52.22,42.76Z">
+                                                    </path>
+                                                    <line class="cls-1" x1="37.34" x2="37.34" y1="33" y2="32.99"></line>
+                                                    <line class="cls-1" x1="47.76" x2="47.74" y1="42.76" y2="42.76">
+                                                    </line>
+                                                    <path class="cls-1"
+                                                        d="M61.85,27.5a2.18,2.18,0,0,0-.92-.21,3,3,0,0,0-.86.14,2.21,2.21,0,0,0,0-.37h0l-.18-.46A7.66,7.66,0,0,1,54.58,22c-.48-.14-1-.26-1.41-.38-3.4,5.2-13,5.42-13,5.42l-.12.32a3,3,0,0,0-.91-.16,2.22,2.22,0,0,0-.82.16s-1.43-8.13,4.23-11.27a13.47,13.47,0,0,1,7.39-1.86c4.87,0,9.47,2,11.35,5.52C62.33,21.76,62,24.12,61.85,27.5Z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">Services</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="w-full flex flex-row justify-right items-center pl-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/services/request-service-list/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg width="25px" height="25px" viewBox="0 0 1024 1024" class="icon"
+                                                version="1.1" stroke-width="8.192">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M212 32h600c32.8 0 60 27.2 60 60v840c0 32.8-27.2 60-60 60h-600c-32.8 0-60-27.2-60-60v-840C152 59.2 179.2 32 212 32z"
+                                                        fill="#FFFFFF"></path>
+                                                    <path
+                                                        d="M414.4 876H271.2c-10.4 0-19.2-8.8-19.2-19.2V713.6c0-10.4 8.8-19.2 19.2-19.2h143.2c10.4 0 19.2 8.8 19.2 19.2v143.2c0 10.4-8.8 19.2-19.2 19.2z"
+                                                        fill="#FFFFFF"></path>
+                                                    <path
+                                                        d="M812 1000h-600c-37.6 0-68-30.4-68-68v-840C144 54.4 174.4 24 212 24h600c37.6 0 68 30.4 68 68v840c0 37.6-30.4 68-68 68zM212 40C183.2 40 160 63.2 160 92v840c0 28.8 23.2 52 52 52h600c28.8 0 52-23.2 52-52v-840c0-28.8-23.2-52-52-52h-600z"
+                                                        fill="#ed719e"></path>
+                                                    <path
+                                                        d="M414.4 330.4H271.2c-10.4 0-19.2-8.8-19.2-19.2v-144c0-10.4 8.8-19.2 19.2-19.2h143.2c10.4 0 19.2 8.8 19.2 19.2v143.2c0 11.2-8.8 20-19.2 20z"
+                                                        fill="#ff8c82"></path>
+                                                    <path
+                                                        d="M414.4 338.4H271.2c-15.2 0-27.2-12-27.2-27.2v-144c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v143.2c0 15.2-12 28-27.2 28zM271.2 156c-6.4 0-11.2 4.8-11.2 11.2v143.2c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V167.2c0-6.4-4.8-11.2-11.2-11.2H271.2z"
+                                                        fill="#ed719e"></path>
+                                                    <path
+                                                        d="M414.4 603.2H271.2c-10.4 0-19.2-8.8-19.2-19.2V440c0-10.4 8.8-19.2 19.2-19.2h143.2c10.4 0 19.2 8.8 19.2 19.2v144c0 10.4-8.8 19.2-19.2 19.2z"
+                                                        fill="#ff8c82"></path>
+                                                    <path
+                                                        d="M414.4 611.2H271.2c-15.2 0-27.2-12-27.2-27.2V440c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v144c0 14.4-12 27.2-27.2 27.2zM271.2 428.8c-6.4 0-11.2 4.8-11.2 11.2v144c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V440c0-6.4-4.8-11.2-11.2-11.2H271.2zM414.4 884H271.2c-15.2 0-27.2-12-27.2-27.2V713.6c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v143.2c0 15.2-12 27.2-27.2 27.2zM271.2 701.6c-6.4 0-11.2 4.8-11.2 11.2V856c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V713.6c0-6.4-4.8-11.2-11.2-11.2H271.2zM414.4 338.4H271.2c-15.2 0-27.2-12-27.2-27.2v-144c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v143.2c0 15.2-12 28-27.2 28zM271.2 156c-6.4 0-11.2 4.8-11.2 11.2v143.2c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V167.2c0-6.4-4.8-11.2-11.2-11.2H271.2z"
+                                                        fill="#ed719e"></path>
+                                                    <path
+                                                        d="M414.4 611.2H271.2c-15.2 0-27.2-12-27.2-27.2V440c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v144c0 14.4-12 27.2-27.2 27.2zM271.2 428.8c-6.4 0-11.2 4.8-11.2 11.2v144c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V440c0-6.4-4.8-11.2-11.2-11.2H271.2zM414.4 884H271.2c-15.2 0-27.2-12-27.2-27.2V713.6c0-15.2 12-27.2 27.2-27.2h143.2c15.2 0 27.2 12 27.2 27.2v143.2c0 15.2-12 27.2-27.2 27.2zM271.2 701.6c-6.4 0-11.2 4.8-11.2 11.2V856c0 6.4 4.8 11.2 11.2 11.2h143.2c6.4 0 11.2-4.8 11.2-11.2V713.6c0-6.4-4.8-11.2-11.2-11.2H271.2zM768 247.2H548c-4.8 0-8-3.2-8-8s3.2-8 8-8H768c4.8 0 8 3.2 8 8s-3.2 8-8 8z"
+                                                        fill="#ed719e"></path>
+                                                    <path
+                                                        d="M768 520H548c-4.8 0-8-3.2-8-8s3.2-8 8-8H768c4.8 0 8 3.2 8 8s-3.2 8-8 8z"
+                                                        fill="#ed719e"></path>
+                                                    <path
+                                                        d="M766.4 792.8H546.4c-4.8 0-8-3.2-8-8s3.2-8 8-8h220c4.8 0 8 3.2 8 8s-4 8-8 8z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">Manage Service Requests</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-[140px] lg:h-1/2 pb-4 flex">
+                    <div class="w-full h-full p-12 flex flex-col bg-white  border border-gray-300 rounded-lg shadow-lg">
+                        <h2 class="p-2 text-2xl font-semibold text-justify text-gray-600">
+                            Appointments
+                        </h2>
+                        <p class="p-2 text-justify text-gray-600">
+                            Streamline your vet appointments for efficient and timely pet care. Easily access and manage all upcoming visits to ensure your pets receive the attention they need.
+                        </p>
+                        <!-- Requested List Button -->
+                        <div class="flex flex-row p-4">
+                            <div class="w-full flex flex-row justify-right items-center pr-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/appointments/appointments-list/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                stroke-width="0.00024000000000000003">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                </g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <g id="Calendar">
+                                                        <path
+                                                            d="M18.438,4.954H16.5c0-0.346,0-0.691,0-1.036c0-0.124,0-0.248,0-0.372c0-0.262-0.23-0.512-0.5-0.5 c-0.271,0.012-0.5,0.22-0.5,0.5c0,0.469,0,0.939,0,1.408h-7c0-0.346,0-0.691,0-1.036c0-0.124,0-0.248,0-0.372 c0-0.262-0.23-0.512-0.5-0.5c-0.271,0.012-0.5,0.22-0.5,0.5c0,0.469,0,0.939,0,1.408H5.562c-1.378,0-2.5,1.122-2.5,2.5v11 c0,1.379,1.122,2.5,2.5,2.5h12.875c1.379,0,2.5-1.121,2.5-2.5v-11C20.938,6.076,19.816,4.954,18.438,4.954z M5.562,5.954H7.5 c0,0.073,0,0.147,0,0.22c0,0.124,0,0.248,0,0.372c0,0.262,0.23,0.512,0.5,0.5c0.271-0.012,0.5-0.22,0.5-0.5c0-0.197,0-0.394,0-0.592 h7c0,0.073,0,0.147,0,0.22c0,0.124,0,0.248,0,0.372c0,0.262,0.23,0.512,0.5,0.5c0.271-0.012,0.5-0.22,0.5-0.5 c0-0.197,0-0.394,0-0.592h1.937c0.827,0,1.5,0.673,1.5,1.5v1.584H4.062V7.454C4.062,6.627,4.735,5.954,5.562,5.954z M18.438,19.954 H5.562c-0.827,0-1.5-0.673-1.5-1.5v-8.416h15.875v8.416C19.938,19.281,19.265,19.954,18.438,19.954z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">Upcoming Appointments</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="w-full flex flex-row justify-right items-center pl-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/appointments/slots/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg height="25px" width="25px" version="1.1" id="Layer_1"
+                                                viewBox="0 0 64 64" enable-background="new 0 0 64 64"
+                                                xml:space="preserve" stroke-width="0.00064">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <g id="Calendar">
+                                                        <path
+                                                            d="M60.0002518,6.0037999h-15V1c0-0.5527-0.4472008-1-1-1c-0.5527,0-1,0.4473-1,1v5.0037999H22.0002499V1 c0-0.5527-0.4472008-1-1-1c-0.5527,0-1,0.4473-1,1v5.0037999H3.9997499c-2.2090998,0-4,1.7908001-4,4.0000005V60 c0,2.2090988,1.7909,4,4,4h56.0005035c2.209198,0,4-1.7909012,4-4V10.0038004 C64.0002518,7.7946,62.2094498,6.0037999,60.0002518,6.0037999z M3.9997499,8.0038004h16.0004997V11c0,0.5527,0.4473,1,1,1 c0.5527992,0,1-0.4473,1-1V8.0038004h21.0000019V11c0,0.5527,0.4473,1,1,1c0.5527992,0,1-0.4473,1-1V8.0038004h15 c1.1027985,0,2,0.8970995,2,2V17h-60L1.99975,17.0000992v-6.9962988C1.99975,8.9008999,2.8970499,8.0038004,3.9997499,8.0038004z M62.0002518,60c0,1.1027985-0.8972015,2-2,2H3.9997499c-1.1027,0-1.9999999-0.8972015-1.9999999-2V18.9999008L2.0002501,19h60V60z ">
+                                                        </path>
+                                                        <path d="M18.0002499,24h-8v8h8V24z M16.0002499,30h-4v-4h4V30z">
+                                                        </path>
+                                                        <path
+                                                            d="M36.0002518,24h-8.0000019v8h8.0000019V24z M34.0002518,30h-4.0000019v-4h4.0000019V30z">
+                                                        </path>
+                                                        <path d="M54.0002518,24h-8v8h8V24z M52.0002518,30h-4v-4h4V30z">
+                                                        </path>
+                                                        <path d="M18.0002499,36h-8v8h8V36z M16.0002499,42h-4v-4h4V42z">
+                                                        </path>
+                                                        <path
+                                                            d="M36.0002518,36h-8.0000019v8h8.0000019V36z M34.0002518,42h-4.0000019v-4h4.0000019V42z">
+                                                        </path>
+                                                        <path d="M18.0002499,48h-8v8h8V48z M16.0002499,54h-4v-4h4V54z">
+                                                        </path>
+                                                        <path
+                                                            d="M36.0002518,48h-8.0000019v8h8.0000019V48z M34.0002518,54h-4.0000019v-4h4.0000019V54z">
+                                                        </path>
+                                                        <path d="M54.0002518,36h-8v8h8V36z M52.0002518,42h-4v-4h4V42z">
+                                                        </path>
+                                                        <path d="M54.0002518,48h-8v8h8V48z M52.0002518,54h-4v-4h4V54z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">View slots</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full lg:w-[50%] h-full lg:pl-2 pt-2 lg:pt-0 flex flex-col">
+                <div class="w-full h-[140px] lg:h-1/2 pb-4 flex">
+                    <div class="w-full h-full p-12 flex flex-col bg-white  border border-gray-300 rounded-lg shadow-lg">
+                        <h2 class="p-2 text-2xl font-semibold text-justify text-gray-600">
+                            Medical Visit Form
+                        </h2>
+                        <p class="p-2 text-gray-600">
+                            Document patient visits meticulously with our form for real-time observations, diagnoses,
+                            and treatment plans, ensuring comprehensive care.
+                        </p>
+                        <div class="flex flex-row p-4">
+                            <div class="w-full flex flex-row justify-right items-center pr-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/medicalvisit/add-medical-visit/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg width="25px" height="25px" viewBox="0 0 100 100" data-name="Layer 1"
+                                                id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                </g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1,
+                                                            .cls-2 {
+                                                                fill: #ffffff;
+                                                                stroke-linejoin: round;
+                                                                stroke-width: 0.7000000000000001;
+                                                            }
+
+                                                            .cls-2 {
+                                                                stroke-linecap: round;
+                                                            }
+                                                        </style>
+                                                    </defs>
+                                                    <path class="cls-1"
+                                                        d="M75.29,23.2V85.48a2.08,2.08,0,0,1-2.08,2.08H26.79a2.08,2.08,0,0,1-2.08-2.08V23.2a2.08,2.08,0,0,1,2.08-2.08h9v2.25a1,1,0,0,0,1,1H63.17a1,1,0,0,0,1-1V21.12h9A2.08,2.08,0,0,1,75.29,23.2Z">
+                                                    </path>
+                                                    <path class="cls-1"
+                                                        d="M71.13,22.16v60.2a1,1,0,0,1-1,1H29.91a1,1,0,0,1-1-1V22.16a1,1,0,0,1,1-1h5.88v2.25a1,1,0,0,0,1,1H63.17a1,1,0,0,0,1-1V21.12h5.88A1,1,0,0,1,71.13,22.16Z">
+                                                    </path>
+                                                    <rect class="cls-1" height="6.58" rx="1.04" width="28.43" x="35.79"
+                                                        y="17.83"></rect>
+                                                    <circle class="cls-1" cx="50" cy="15.14" r="2.69"></circle>
+                                                    <path class="cls-1"
+                                                        d="M61,24.41v5A1.56,1.56,0,0,1,59.39,31H40.61a1.56,1.56,0,0,1-1.56-1.56v-5">
+                                                    </path>
+                                                    <path class="cls-2"
+                                                        d="M33,52.85H38.7l1.63-7.37a.26.26,0,0,1,.51,0l3.21,13.74a.26.26,0,0,0,.51,0l3.27-19.56a.26.26,0,0,1,.51,0l3.32,26.51a.26.26,0,0,0,.51,0L55.45,43.9a.26.26,0,0,1,.51,0L59.2,59.51a.26.26,0,0,0,.51,0L63,46.85a.26.26,0,0,1,.51,0l1.62,6H67">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">Fill Out Visit Form</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="w-full flex flex-row justify-right items-center pl-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/dashboard/medicalvisit/medical-visit-list/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg version="1.1" id="Layer_1" viewBox="0 0 32 32" xml:space="preserve"
+                                                width="25px" height="25px" stroke-width="0.00032">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path id="medical--charts_1_"
+                                                        d="M27,31.36H8c-0.199,0-0.36-0.161-0.36-0.36v-1.64H6c-0.199,0-0.36-0.161-0.36-0.36v-1.64H5 c-0.199,0-0.36-0.161-0.36-0.36V3c0-0.199,0.161-0.36,0.36-0.36h4.64V2c0-0.199,0.161-0.36,0.36-0.36h1.64V1 c0-0.199,0.161-0.36,0.36-0.36h4c0.199,0,0.36,0.161,0.36,0.36v0.64H18c0.199,0,0.36,0.161,0.36,0.36v0.64H23 c0.199,0,0.36,0.161,0.36,0.36v1.64H25c0.199,0,0.36,0.161,0.36,0.36v1.64H27c0.199,0,0.36,0.161,0.36,0.36v24 C27.36,31.199,27.199,31.36,27,31.36z M8.36,30.64h18.28V7.36h-1.28V29c0,0.199-0.161,0.36-0.36,0.36H8.36V30.64z M6.36,28.64h18.28 V5.36h-1.28V27c0,0.199-0.161,0.36-0.36,0.36H6.36V28.64z M5.36,26.64h17.28V3.36h-4.28V4c0,0.199-0.161,0.36-0.36,0.36h-8 C9.801,4.36,9.64,4.199,9.64,4V3.36H5.36V26.64z M10.36,3.64h7.28V2.36H16c-0.199,0-0.36-0.161-0.36-0.36V1.36h-3.28V2 c0,0.199-0.161,0.36-0.36,0.36h-1.64C10.36,2.36,10.36,3.64,10.36,3.64z M20.5,21.36h-13v-0.72h13V21.36z M20.5,17.36h-13v-0.72h13 V17.36z M20.5,13.36h-8v-0.72h8V13.36z M9.86,13H9.14v-1.64H7.5v-0.72h1.64V9h0.72v1.64h1.64v0.72H9.86V13z M20.5,9.36h-8V8.64h8 V9.36z">
+                                                    </path>
+                                                    <rect id="_Transparent_Rectangle" style="fill:none;" width="32"
+                                                        height="32"></rect>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">View Medical Records</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-[140px] lg:h-1/2 pb-4 flex">
+                    <div class="w-full h-full p-12 flex flex-col bg-white  border border-gray-300 rounded-lg shadow-lg">
+                        <h2 class="p-2 text-2xl font-semibold text-justify text-gray-600">
+                            Pets & Pet Owners
+                        </h2>
+                        <p class="p-2 text-justify text-gray-600">
+                            View a comprehensive list of registered Pets & Pet Owners on our platform, including
+                            profiles, medical histories, appointments, and care instructions.
+                        </p>
+                        <div class="flex flex-row p-4">
+                            <div class="w-full flex flex-row justify-right items-center pr-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/pets/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg width="25px" height="25px" viewBox="0 0 20 20" stroke-width="0.0002">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <rect x="0" fill="none" width="20" height="20"></rect>
+                                                    <g>
+                                                        <path
+                                                            d="M11.9 8.4c1.3 0 2.1-1.9 2.1-3.1 0-1-.5-2.2-1.5-2.2-1.3 0-2.1 1.9-2.1 3.1 0 1 .5 2.2 1.5 2.2zm-3.8 0c1 0 1.5-1.2 1.5-2.2C9.6 4.9 8.8 3 7.5 3 6.5 3 6 4.2 6 5.2c-.1 1.3.7 3.2 2.1 3.2zm7.4-1c-1.3 0-2.2 1.8-2.2 3.1 0 .9.4 1.8 1.3 1.8 1.3 0 2.2-1.8 2.2-3.1 0-.9-.5-1.8-1.3-1.8zm-8.7 3.1c0-1.3-1-3.1-2.2-3.1-.9 0-1.3.9-1.3 1.8 0 1.3 1 3.1 2.2 3.1.9 0 1.3-.9 1.3-1.8zm3.2-.2c-2 0-4.7 3.2-4.7 5.4 0 1 .7 1.3 1.5 1.3 1.2 0 2.1-.8 3.2-.8 1 0 1.9.8 3 .8.8 0 1.7-.2 1.7-1.3 0-2.2-2.7-5.4-4.7-5.4z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">View Registered Pets</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="w-full flex flex-row justify-right items-center pl-3">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        <a href="/pets/petowner/list/"
+                                            class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
+                                            <svg version="1.1" id="Capa_1" width="25px" height="25px"
+                                                viewBox="0 0 98.20 98.20" xml:space="preserve"
+                                                stroke-width="0.0009820500000000002">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <g>
+                                                        <g>
+                                                            <path
+                                                                d="M64.433,24.98c-6.372,1.368-12.651-2.694-14.017-9.07c-1.365-6.377,2.694-12.65,9.07-14.019 c6.374-1.366,12.65,2.696,14.019,9.069C74.872,17.336,70.81,23.615,64.433,24.98z">
+                                                            </path>
+                                                            <path
+                                                                d="M1.256,76.202l5.308-2.106l8.736-15.392l11.206-8.227l5.057,2.938l5.206-1.895c0.688-1.658,2.322-2.825,4.231-2.825 c10.637,0,16.82-7.592,17.338-14.854c0.354-3.663,3.234-6.686,6.248-8.146c0,0,1.141-0.624,2.439-0.873 c1.241-0.237,2.683-0.245,2.683-0.245l0.035-0.002c4.088,0.117,8.899,2.397,9.919,7.146l5.458,25.482 c0.327,1.521,0.189,2.97-0.266,4.297c-0.067,0.254-5.729,14.242-5.729,14.242h12.827c3.452,0,6.251,2.8,6.251,6.252 s-2.799,6.25-6.251,6.25H69.842c-2.08,0-4.024-1.035-5.188-2.762c-1.161-1.727-1.387-3.915-0.604-5.842l3.515-8.646l-7.604,2.174 L62.824,88.9c0.617,3.396-1.635,6.648-5.03,7.269c-0.378,0.069-0.755,0.104-1.127,0.104c-2.961-0.001-5.592-2.115-6.143-5.132 l-3.878-21.305c-0.576-3.164,1.34-6.246,4.431-7.13l12.312-3.52l-2.001-9.344c-4.518,5.274-11.369,8.021-20.386,8.021 c-1.113,0-2.119-0.412-2.913-1.071l-4.349,1.583L21.811,81.188l0.509,12.287c0.062,1.49-1.097,2.749-2.588,2.812 c-0.039,0.002-0.075,0.002-0.114,0.002c-1.44,0-2.638-1.136-2.697-2.59l-0.326-7.849l-1.292,8.437 c-0.204,1.335-1.354,2.292-2.668,2.292c-0.136,0-0.274-0.009-0.412-0.031c-1.476-0.228-2.487-1.604-2.262-3.08l2.112-13.782 l-3.62-2.058l-5.728,2.273c-0.239,0.096-0.489,0.14-0.732,0.14c-0.792,0-1.541-0.474-1.852-1.256 C-0.265,77.764,0.235,76.606,1.256,76.202z">
+                                                            </path>
+                                                            <path
+                                                                d="M25.419,44.749c-0.351,0.332-0.705,0.666-1.062,0.998c-0.255,0.238,1.198,3.617,1.198,3.617l-10.913,7.895 c-0.735-1.151-1.472-2.307-2.207-3.462c-1.619-2.532-3.162-5.117-5.067-7.449c-0.519-0.634-1.136-1.207-1.784-1.716 c-2.984-2.333-1.129-3.94-0.649-4.22c1.196-0.705,2.516-0.572,3.749,0.078c0.687,0.365,1.367,0.742,2.048,1.122 c0.2,0.111,0.352,0.104,0.541-0.043c0.319-0.242,0.668-0.452,1.008-0.661c1.968-1.196,3.881-0.982,5.986-1.896 c0.713-0.308,5.159-5.405,7.517-4.162c2.571,1.354,2.756,4.174,1.931,6.446C27.231,42.635,26.455,43.778,25.419,44.749z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <h4 class="w-fit pl-2 flex">Pets Owners</h4>
+                                        </a>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {% elif request.user.is_petowner %}
@@ -89,7 +460,7 @@
                                 class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
                                 <a href="{% url 'pets:add_pet' %}"
                                     class="w-full flex flex-row justify-center items-center fill-[#ed719e] hover:fill-white">
-                                    <svg width="25px" height="25px"viewBox="0 0 50 50">
+                                    <svg width="25px" height="25px" viewBox="0 0 50 50">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
                                         </g>

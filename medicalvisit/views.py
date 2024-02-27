@@ -6,7 +6,7 @@ from .forms import PetMedicalVisitForm
 from .models import PetMedicalVisit
 
 
-vetstaff_required
+@vetstaff_required
 def add_medical_visit(request):
     if request.method == 'POST':
         form = PetMedicalVisitForm(request.POST, request.FILES)

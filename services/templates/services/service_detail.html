@@ -3,42 +3,75 @@
 {% block title %} {{ service.name}} {% endblock %}
 
 {% block content %}
-<div class="w-full h-full p-16 flex justify-center">
-    <div class="py-6 px-6">
+<div class="w-full h-full relative flex flex-col pt-32 pb-16 items-center justify-start">
+    <div class="container w-full h-full flex flex-col lg:flex-row items-center justify-center">
+        <div class="w-full lg:w-[65%] h-full lg:pr-2 lg:pb-0 p-6 flex flex-col bg-white shadow-md rounded-lg">
+            <div class="w-full flex flex-col">
+                <h1 class="mb-4 text-xl">{{ service.name}}</h1>
+            </div>
+            {% if service.description %}
+            <div class="w-full flex flex-row p-2">
+                <p class="flex font-semibold pr-2">Description:</p>
+                <h5 class="flex mb-2 text-xl">{{ service.description }}</h5>
+            </div>
+            <div class="w-full flex flex-row p-2">
+                <p class="flex font-semibold pr-2">Cost:</p>
+                <h5 class="flex mb-2 text-xl">{{ service.cost }} $</h5>
+            </div>
 
-        <h1 class="mb-4 text-xl">{{ service.name}}</h1>
-
-        {% if service.description %}
-
-        <p class="font-semibold">Description</p>
-        <p class="mb-2 text-xl">{{ service.description }}</p>
-
-        <p class="font-semibold">Cost</p>
-        <p class="mb-2 text-xl">{{ service.cost }}</p>
-
-        <p class="font-semibold">Duration</p>
-        <p class="mb-2 text-xl">{{ service.duration }}</p>
-
-        {% endif %}
-
-        <p class="font-semibold">Created by</p>
-        <p class="mb-2 text-xl">{{ service.name.created_by}}</p>
-
-        <hr class="mb-4">
-
-        <a href="{% url 'services:edit' service.id %}"
-            class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Edit</a>
-
-        <a href="{% url 'services:delete' service.id %}"
-            class="inline-block py-4 px-6 bg-red-500 rounded-xl text-white">Delete</a>
-
-        <hr class="mb-4">
-
-        <a href="{% url 'services:list' %}" class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Back to
-            labservices</a>
-
+            <div class="w-full flex flex-row p-2">
+                <p class="flex font-semibold pr-2">Duration:</p>
+                <h5 class="flex mb-2 text-xl">{{ service.duration }} day</h5>
+            </div>
+            {% endif %}
+            <div class="w-full flex flex-row p-2">
+                <p class="flex font-semibold pr-2">Created by:</p>
+                <h5 class="flex mb-2 text-xl">{{ service.name.created_by }}</h5>
+            </div>
+            <div class="w-full flex flex-row pr-6 items-center">
+                <div class="w-full flex flex-col">
+                    <div class="w-full p-4 flex flex-row justify-center">
+                        <button
+                            class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                            <span
+                                class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                <a href="{% url 'services:edit' service.id %}" class="w-full flex flex-row justify-center
+                            items-center">
+                                    Edit
+                                </a>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="w-full p-4 flex flex-row justify-center">
+                        <button
+                            class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                            <span
+                                class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                <a href="{% url 'services:list' %}" class="w-full flex flex-row justify-center
+                            items-center">
+                                    Back to
+                                    Services
+                                </a>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col">
+                    <div class="w-full p-4 flex flex-row justify-center">
+                        <button
+                            class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                            <span
+                                class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                <a href="{% url 'services:delete' service.id %}" class="w-full flex flex-row justify-center
+                            items-center">
+                                    Delete
+                                </a>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
 {% endblock %}

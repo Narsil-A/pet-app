@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 </a>
+                {% if request.user.is_petowner %}
                 <div class="flex flex-row p-2">
                     <div class="flex p-6">
                         <button
@@ -89,6 +90,7 @@
                         </button>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% if records %}
@@ -105,6 +107,7 @@
                         <div class="text-base font-semibold">To Goal Weight: <span class="text-gray-800">{{ to_goal_weight }}
                             Kgs</span></div>
                     </div>
+                    {% if request.user.is_petowner %}
                     <div class="flex p-6">
                         <button
                             class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
@@ -116,6 +119,7 @@
                             </span>
                         </button>
                     </div>
+                    {% endif %}
                 </div>
             </div>
             <!-- Chart.js Graph -->

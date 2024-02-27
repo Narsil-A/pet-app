@@ -28,11 +28,15 @@
                 </div>
                 {% endfor %}
                 {{ form.media }} <!-- Important for custom widgets that require JS or CSS -->
-                <button
-                    class="w-full py-2 px-4 bg-blue-500 text-white flex flex-row justify-center items-center rounded-xl"
-                    type="submit">
-                    Submit
-                </button>
+                <div class="w-full flex items-center justify-center"> 
+                    <button type="submit"
+                        class="w-full h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                        <span
+                            class="w-full py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                            Submit
+                        </span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

@@ -5,16 +5,19 @@
 
 {% block content %}
 {% load static %}
-<div class="w-full h-full p-16 flex justify-center">
-    <h1>{{ petowner.user.get_full_name }}</h1>
-    <!-- Display other pet owner details -->
-    <h2>Pets:</h2>
-    <ul>
-        {% for pet in pets %}
-        <li>{{ pet.name }}</li>
-        <!-- More pet details -->
-        {% endfor %}
-    </ul>
+<div class="w-full h-full p-32 flex justify-center">
+    <div class="container w-full p-16 flex flex-col items-center justify-center">
+        <div class="w-full pb-2 flex">
+            <h1>{{ petowner.user.get_full_name }}</h1>
+            <!-- Display other pet owner details -->
+            <h2>Pets:</h2>
+            <ul>
+                {% for pet in pets %}
+                <li>{{ pet.name }}</li>
+                <!-- More pet details -->
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
-
 {% endblock %}

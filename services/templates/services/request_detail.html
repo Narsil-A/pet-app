@@ -3,55 +3,87 @@
 {% block title %} Request Detail - {{ request_detail.petowner.username }} {% endblock %}
 
 {% block content %}
-
-<div class="w-full h-full p-20 flex justify-center">
-    <div class="container p-8 w-full h-full flex flex-col items-center">
-        <div class="w-full p-2 flex-col items-start justify-start">
-            <h1 class="w-fit flex text-2xl font-bold mb-4">Request Detail for {{ request_detail.petowner.first_name }}
-                {{ request_detail.petowner.last_name }}</h1>
-        </div>
-        <div class="w-full flex flex-col lg:flex-row  justify-around">
-            <div class="w-[45%] flex flex-col p-2 border border-gray-300 bg-white rounded-lg shadow-lg">
-                <div class="p-10">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold mb-2">Pet: {{ request_detail.pet.name }}</h2>
+{% load widget_tweaks %}
+<div class="w-full h-full relative flex flex-col pt-32 pb-16 items-center justify-start">
+    <div class="container w-full h-full flex flex-col lg:flex-row items-center justify-center">
+        <div class="w-full lg:w-[65%] h-full lg:pr-2 lg:pb-0 flex flex-col">
+            <div class="w-full  h-[750px] lg:h-1/2 p-2 flex">
+                <div class="w-full p-4 flex flex-col bg-white items-center border border-gray-300 rounded-lg shadow-lg">
+                    <h1 class="w-full flex text-xl font-bold">Request Detail for {{ request_detail.petowner.first_name }} {{ request_detail.petowner.last_name }}</h1>
+                    <div class="w-full flex flex-col p-4">
+                        <h2 class="text-lg font-semibold">Pet: {{ request_detail.pet.name }}</h2>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="w-full flex flex-col p-4">
                         {% if request_detail.service %}
-                        <p class="mb-2 text-lg">Service: <span class="font-medium">{{ request_detail.service.name }}</span>
-                        </p>
-                        <p class="mb-2 text-lg">Cost: <span class="font-medium">{{ request_detail.service.cost }}
-                                $</span>
-                        </p>
-                        <div class="w-[80%]">
-                            <p class="mb-2 text-lg">Description: <span class="font-medium">{{ request_detail.service.description }}</span></p>
+                        <div class="w-full flex flex-row items-center p-2">
+                            <p class="text-lg font-semibold">Service: 
+                            </p>
+                            <h5 class="flex w-full px-1 text-center">{{ request_detail.service.name }}</h5>
+                        </div>
+                        <div class="w-full flex flex-row items-center p-2">
+                            <p class="text-lg font-semibold">Cos: 
+                            </p>
+                            <h5 class="flex w-full px-1 text-center">{{ request_detail.service.cost }}$</h5>
                         </div>
 
-                        {% endif %}
-                    </div>
-                    <div class="flex">
-                        <p class="mt-2 mb-2 text-lg font-semibold">
-                            Payment Status: <span class="font-medium text-gray-700">
+                        <div class="w-full flex flex-row items-center p-2">
+                            <p class="text-lg font-semibold">Description: 
+                            </p>
+                            <h5 class="w-full px-1 text-justify">{{ request_detail.service.description }}</h5>
+                        </div>
+                        <div class="w-full flex flex-row items-center p-2">
+                            {% endif %}
+                            <p class="text-lg font-semibold">
+                                Payment Status:
                                 {% if request_detail.paid %}
                                 Paid
                                 {% else %}
                                 Not Paid
                                 {% endif %}
-                            </span>
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                    <div class="flex flex-row">
-                        <p class="flex text-lg font-semibold">Latest Status: </p>
-                        {% if request_detail.latest_status_update %}
-                        <p class="flex text-gray-700"> {{ request_detail.latest_status_update }} </p>
-                        {% else %}
-                        <p class="flex text-gray-500"> No status updates available. </p>
-                        {% endif %}
+                    <div class="w-full flex flex-row items-center p-2">
+                            <p class="text-lg font-semibold pr-4">Latest Status: </p>
+                            {% if request_detail.latest_status_update %}
+                            <p class="text-gray-700"> {{ request_detail.latest_status_update }} </p>
+                            {% else %}
+                            <p class="text-gray-500"> No status updates available. </p>
+                            {% endif %}
                     </div>
                 </div>
+            </div>
+            <div class="w-full h-[250px] lg:h-1/2 p-2 flex">
+                <div class="w-full p-4 flex flex-col bg-white items-center border border-gray-300 rounded-lg shadow-lg">
+                    {% if request.user.is_vetstaff %}
+                    <h2 class="flex text-lg font-semibold">Update Status</h2>
+                    <div class="flex">
+                        <form method="post" enctype="multipart/form-data" action="." class="p-4">
+                            {% csrf_token %}
 
-                <div class="flex flex-row py-20 items-center">
-                    {% if request.user.is_petowner %}
+                            {% for field in form %}
+                            <div class="p-2">
+                                <label class="block text-gray-700 text-sm font-bold" for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                </label>
+                                {{ field|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                                {% if field.errors %}
+                                <p class="text-red-500 text-xs italic">{{ field.errors }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            <div class="w-full p-4 flex flex-row justify-center">
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        Update Status
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
                     <div class="flex">
                         <div class="flex p-2">
                             <form action="{% url 'services:cancel_service_request' request_detail.id %}" method="post"
@@ -69,7 +101,7 @@
                                 <span
                                     class="w-60 py-1 flex flex-row items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
                                     <a href="{% url 'appointments:add_schedule' request_detail.id %}" class="w-full flex flex-row justify-center
-                            items-center">
+                                                                    items-center">
                                         Schedule Appointment
                                     </a>
                                 </span>
@@ -77,41 +109,27 @@
                         </div>
                     </div>
                     {% endif %}
-                    <div class="flex p-2">
-                        {% if request.user.is_vetstaff %}
-                        <div class="mt-2 bg-white shadow-md rounded-lg p-2">
-                            <h2 class="text-lg font-semibold mb-3">Update Status</h2>
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="mb-2">
-                                    {{ form.as_p }}
-                                </div>
-                                <button type="submit"
-                                    class="py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg">Update
-                                    Status</button>
-                            </form>
-                        </div>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
-            <div class="w-[30%] flex flex-col p-6 border border-gray-300 bg-white rounded-lg shadow-lg">
-                <h2 class="text-lg font-semibold mb-3">Updates History</h2>
+        </div>
+        <div class="w-full lg:w-[35%] h-full lg:pl-2 pt-2 lg:pt-0 flex flex-col">
+            <div class="w-full h-[170px] lg:h-1/2 p-4 flex flex-col bg-white border border-gray-300 rounded-lg shadow-lg">
+                <h2 class="flex text-lg font-semibold mb-3 w-full px-1 text-center text-justify">Updates History</h2>
                 {% for update in updates %}
                 <div class="mb-2 mt-2 flex flex-col justify-center py-2">
-                    <p class="font-medium">Status: {{ update.get_status_display }}</p>
-                    <p>Note: {{ update.notes }}</p>
-                    <p>Updated by: {{ update.updated_by.username }}</p>
-                    <p>Updated at: {{ update.created_at }}</p>
+                    <p class="w-full px-1 text-center text-justify">Status: {{ update.get_status_display }}</p>
+                    <p class="w-full px-1 text-center text-justify">Note: {{ update.notes }}</p>
+                    <p class="w-full px-1 text-center text-justify">Updated by: {{ update.updated_by.username }}</p>
+                    <p class="w-full px-1 text-center text-justify">Updated at: {{ update.created_at }}</p>
                 </div>
                 {% empty %}
-                <p class="text-gray-500">No updates have been made for this request.</p>
+                <p class="flex text-gray-500">No updates have been made for this request.</p>
                 {% endfor %}
             </div>
         </div>
-
     </div>
 </div>
+
 
 
 

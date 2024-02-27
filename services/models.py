@@ -76,4 +76,4 @@ class PetServiceTracker(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.requested_service.service.name} - {self.get_status_display()}"
+        return f"{self.requested_service.service.name} - {self.status}"
