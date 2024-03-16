@@ -2,8 +2,8 @@
 
 {% block content %}
 <!-- Weight Records -->
-<div class="w-full h-full p-32 flex items-center justify-center">
-    <div class="container w-[60%] p-8 flex flex-col bg-white shadow-lg rounded-lg">
+<div class="w-full h-screen p-32 flex items-center justify-center bg-white">
+    <div class="container w-[60%] p-8 flex flex-col">
         <h2 class="font-semibold">Edit Goal Weight for {{ pet.name }}</h2>
         <form class="flex flex-col p-8" method="post">
             {% csrf_token %}

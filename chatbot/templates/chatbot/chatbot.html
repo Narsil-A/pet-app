@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="w-full h-full p-32 flex justify-center bg-white">
+    <div class="container w-full md:w-2/3 lg:w-1/2 p-16 flex flex-col items-center justify-center">
+        <div class="w-full p-4 bg-gradient-to-br from-pink-500 to-orange-400 text-white text-lg rounded-t-lg">Chat with our Pet Assistant</div>
+        <div id="chat" class="w-full p-4 h-96 overflow-y-auto flex flex-col space-y-2 bg-gray-100 rounded-b-lg">
+            <!-- Display all chat messages here -->
+            {% for chat in chats %}
+            <div class="self-end bg-blue-500 text-white p-2 rounded-lg max-w-xs lg:max-w-md text-sm">
+                {{ chat.message }}
+            </div>
+            <div class="self-start bg-gray-300 text-black p-2 rounded-lg max-w-xs lg:max-w-md text-sm">
+                {{ chat.response }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="w-full p-2">
+            <input type="text" id="chatInput" class="w-full p-2 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none" placeholder="Type your message here..." onkeypress="if(event.key === 'Enter') { sendMessage(); }">
+        </div>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (message) {
+            // Append user message
+            document.getElementById('chat').innerHTML += `
+                <div class="self-end bg-blue-500 text-white p-2 rounded-lg max-w-xs lg:max-w-md text-sm">
+                    ${message}
+                </div>
+            `;
+            input.value = ''; // Clear input field after sending message
+
+            // AJAX request to Django backend
+            fetch('/dashboard/chatbot/', { // Correctly point to the Django view
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: new URLSearchParams({
+                    'message': message
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const chatResponse = data.response; // Use 'data.response' to get the chatbot's response
+                    // Append chatbot response
+                    document.getElementById('chat').innerHTML += `
+                    <div class="self-start bg-gray-300 text-black p-2 rounded-lg max-w-xs lg:max-w-md text-sm">
+                        ${chatResponse}
+                    </div>
+                `;
+                    // Scroll to the bottom of the chat
+                    document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+</script>
+
+
+
+{% endblock content %}

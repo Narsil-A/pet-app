@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="w-[75%] p-32 flex items-center justify-center">
-    <div class="container p-16 bg-white rounded-lg shadow-md">
+<div class="w-full h-screen p-32 flex items-center justify-center bg-white">
+    <div class="container p-16">
         <h1 class="p-2 text-2xl font-bold mb-2">Medical Visit Details</h1>
         <div class="p-12  overflow-hidden">
             <div class="p-4">
@@ -12,35 +12,39 @@
                 <p class="p-2 text-md text-gray-700"><strong>Symptoms:</strong> {{ medical_visit.symptoms }}</p>
                 <p class="p-2 text-md text-gray-700"><strong>Diagnosis:</strong> {{ medical_visit.diagnosis }}</p>
                 <p class="p-2 text-md text-gray-700"><strong>Treatment:</strong> {{ medical_visit.treatment }}</p>
-                <p class="p-2 text-md text-gray-700"><strong>Vet Staff:</strong> {{ medical_visit.vet_staff.username }}</p>
+                <p class="p-2 text-md text-gray-700"><strong>Vet Staff:</strong> {{ medical_visit.vet_staff.username }}
+                </p>
                 {% if medical_visit.notes %}
                 <p class="p-2 text-md text-gray-700"><strong>Notes:</strong> {{ medical_visit.notes }}</p>
                 {% endif %}
             </div>
             <!-- Links to edit and delete, if applicable -->
-            {% if request.user.is_vetstaff.first_name %}
+            {% if request.user.is_vetstaff %}
             <div class="p-4">
-                <button type="submit"
-                    class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
-                    <span
-                        class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
-                        <a href="{% url 'medicalvisit:edit_medical_visit' medical_visit.id %}"
-                            class="inline-block py-2 px-4 bg-blue-500 rounded-xl text-white">Edit</a>
-                    </span>
-                </button>
-                <button type="submit"
-                    class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
-                    <span
-                        class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
-
-                        <a href="{% url 'medicalvisit:delete' medical_visit.id %}"
-                            class="inline-block py-2 px-4 bg-red-500 rounded-xl text-white">Delete</a>
-                    </span>
-                </button>
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                        <span
+                            class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                            <a href="{% url 'medicalvisit:edit_medical_visit' medical_visit.id %}">Edit</a>
+                        </span>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center justify-center">
+                        <button type="submit"
+                            class="h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                            <span
+                                class="w-60 py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                <a href="{% url 'medicalvisit:delete' medical_visit.id %}">Delete</a>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
 </div>
 
-{% endblock %}
+    {% endblock %}

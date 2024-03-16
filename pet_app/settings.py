@@ -1,3 +1,5 @@
+
+import dj_database_url
 from decouple import config
 import os
 from pathlib import Path
@@ -10,16 +12,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+#OPENAI_API_KEY = config('OPENAI_API_KEY')
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-SECRET_KEY = config('SECRET_KEY')
+#SECRET_KEY = config('SECRET_KEY')
 
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+
+#STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+#STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
@@ -43,6 +55,7 @@ INSTALLED_APPS = [
     "appointments",
     "medicalvisit",
     "widget_tweaks",
+    "chatbot",
 ]
 
 AUTH_USER_MODEL = 'userprofile.User'
@@ -87,8 +100,10 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse("DATABASE_URL")
 
-
+#"postgres://my_pet_app_user:pDfblukvTEyzr3t7VkbcBHjzr3v622h0@dpg-cnqq8e20si5c73bs61ug-a.oregon-postgres.render.com/my_pet_app"
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

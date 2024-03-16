@@ -12,6 +12,7 @@ urlpatterns = [
     path('dashboard/services/', include('services.urls')),
     path('dashboard/medicalvisit/', include('medicalvisit.urls')),
     path('dashboard/appointments/', include('appointments.urls')),
+    path('dashboard/chatbot/', include('chatbot.urls')),
     path('pets/', include('pets.urls')),
     path('about/', about, name='about'),
     path('log-in/', views.LoginView.as_view(template_name='userprofile/login.html'), name='login'),

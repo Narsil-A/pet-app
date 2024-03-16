@@ -4,8 +4,8 @@
 
 {% block content %}
 {% load widget_tweaks %}
-<div class="w-full h-full p-32 flex justify-center">
-    <div class="container w-[80%] p-6 bg-white shadow-md rounded-lg overflow-hidden">
+<div class="w-full h-full p-16 flex justify-center bg-white">
+    <div class="container w-[80%] p-6  overflow-hidden">
         <h1 class="text-2xl font-bold mb-6">Fill the Medical Visit Form </h1>
         <form method="post" enctype="multipart/form-data" action="." class="p-6">
             {% csrf_token %}

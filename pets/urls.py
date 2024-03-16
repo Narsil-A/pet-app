@@ -16,6 +16,7 @@ urlpatterns = [
     path('pets/<int:record_id>/delete-weight-record/', views.delete_weight_record, name='delete_weight_record'),
     path('petowner/list/', views.petowner_list, name='petowner_list'),
     path('petowner/<int:petowner_id>/', views.petowner_detail, name='petowner_detail'),
-    path('search/', views.search_for_pets, name='search_for_pets'),
+    path('vetstaff/<int:vetstaff_id>/', views.vetstaff_detail, name='vetstaff_detail'),
+    path('search/', views.search, name='search'),
     path('weight-tracker/', views.weighttracker, name='weight_tracker'),
 ]

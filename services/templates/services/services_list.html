@@ -1,10 +1,10 @@
 {% extends 'core/base.html' %}
 
-{% block title %} lab services {% endblock %}
+{% block title %} Pet Services {% endblock %}
 
 {% block content %}
-<div class="w-full h-full p-32 flex justify-center">
-    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+<div class="w-full h-full p-32 flex justify-center bg-white">
+    <div class="container mx-auto p-6">
 
         <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
         {% if services %}
@@ -65,9 +65,9 @@
                 class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
                 <span
                     class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
-                    <a href="{% url 'services:request_service' %}" class="w-full flex flex-row justify-center
+                    <a href="{% url 'services:add_service' %}" class="w-full flex flex-row justify-center
                 items-center">
-                        Request Services
+                        Add Services
                     </a>
                 </span>
             </button>

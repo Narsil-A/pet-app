@@ -2,9 +2,9 @@
 
 {% block title %} Sign up{% endblock %}
 
-{% block content %}<div class="w-full h-full p-16 flex justify-center">
+{% block content %}<div class="w-full h-full p-32 flex justify-center">
     <div class="w-full min-h-full flex flex-col justify-center items-center overflow-y-auto">
-        <div class="w-[400px] p-8 flex flex-col justify-between border border-slate-200 rounded-xl">
+        <div class="w-[400px] p-10 flex flex-col justify-between bg-white rounded-xl">
             <h1 class="w-full text-xl text-center font-bold">
                 Sign up
             </h1>
@@ -39,12 +39,15 @@
                         <!-- Add other password conditions here -->
                     </div>
                 </div>
-
-                <button
-                    class="w-full py-2 px-4 bg-blue-500 text-white flex flex-row justify-center items-center rounded-xl"
-                    type="submit">
-                    Submit
-                </button>
+                <div class="w-full flex items-center justify-center"> 
+                    <button type="submit"
+                        class="w-full h-fit p-[2px] flex flex-row items-center justify-end  font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                        <span
+                            class="w-full py-1 flex flex-row justify-center items-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                            Submit
+                        </span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

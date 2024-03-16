@@ -4,42 +4,45 @@
 
 {% block content %}
 {% load static %}
-<div class="container mx-auto p-32">
-    <div class="overflow-x-auto mt-6 bg-white shadow-md rounded-lg">
-        <table class="min-w-full">
-            <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">Pet Owner</th>
-                    <th class="py-3 px-6 text-left">Pets</th>
-                    <!-- Add more headers as necessary -->
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-                {% for petowner in petowners %}
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
-                        <a href="{% url 'pets:petowner_detail' petowner.user.id  %}"
-                            class="text-blue-600 hover:text-blue-800 transition duration-300">
-                            {{ petowner.user.get_full_name }}
-                        </a>
-                    </td>
-                    <td class="py-3 px-6 text-left">
-                        <ul>
-                            {% for pet in petowner.pets %}
-                            <li>{{ pet.name }} - {{ pet.species }}</li>
-                            <!-- Include more pet details as needed -->
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <!-- Add more columns as necessary -->
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="2" class="text-center py-3 px-6 text-left">No pet owners found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="w-full h-screen p-16 flex justify-center bg-white">
+    <div class="container mx-auto p-16">
+        <div class="overflow-x-auto mt-6">
+            <table class="min-w-full">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Pet Owner</th>
+                        <th class="py-3 px-6 text-left">Pets</th>
+                        <!-- Add more headers as necessary -->
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    {% for petowner in petowners %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <a href="{% url 'pets:petowner_detail' petowner.user.id  %}"
+                                class="text-blue-600 hover:text-blue-800 transition duration-300">
+                                {{ petowner.user.get_full_name }}
+                            </a>
+                        </td>
+                        <td class="py-3 px-6 text-left">
+                            <ul>
+                                {% for pet in petowner.pets %}
+                                <li>{{ pet.name }} - {{ pet.species }}</li>
+                                <!-- Include more pet details as needed -->
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <!-- Add more columns as necessary -->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center py-3 px-6 text-left">No pet owners found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-    {% endblock %}
+
+{% endblock %}

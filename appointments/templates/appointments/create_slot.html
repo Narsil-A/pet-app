@@ -4,8 +4,8 @@
 
 {% block content %}
 {% load widget_tweaks %}
-<div class="w-full h-full p-32 flex justify-center">
-    <div class="container w-[70%] my-8 p-6 bg-white shadow-lg rounded-lg">
+<div class="w-full h-screen p-16 flex justify-center bg-white">
+    <div class="container w-[70%] my-8 p-6">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create Appointment Slot</h2>
         <form method="post" class="space-y-4">
             {% csrf_token %}
@@ -18,9 +18,15 @@
                 {% endif %}
             </div>
             {% endfor %}
-            <button type="submit"
-                class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">Create
-                Slot</button>
+            <div class="flex p-3 items-center justify-center">
+                <button
+                    class="h-fit p-[2px] flex flex-row items-center justify-center font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                    <span
+                        class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                        Create slots
+                    </span>
+                </button>
+            </div>
         </form>
     </div>
 </div>

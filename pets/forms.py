@@ -10,7 +10,7 @@ class PetOwnerForm(forms.ModelForm):
         fields = ['name', 'species', 'breed', 'age', 'medical_history', 'image', 'gender', 'spayed_neutered']
         widgets = {
             'medical_history': forms.CheckboxSelectMultiple(),
-            'breed': forms.Select(),  # Ensure this is a standard select field
+            'breed': forms.Select(),  
         }
 
     def __init__(self, *args, **kwargs):
@@ -29,7 +29,7 @@ class PetOwnerForm(forms.ModelForm):
 class WeightRecordPetInitialForm(forms.ModelForm):
     class Meta:
         model = WeightRecord
-        fields = ['pet', 'weight', 'date', 'goal_weight', 'notes']  # Ensure 'pet' is included if you intend to manipulate it
+        fields = ['pet', 'weight', 'date', 'goal_weight', 'notes']  
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
         }

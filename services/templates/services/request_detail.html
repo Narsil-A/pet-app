@@ -4,32 +4,33 @@
 
 {% block content %}
 {% load widget_tweaks %}
-<div class="w-full h-full relative flex flex-col pt-32 pb-16 items-center justify-start">
-    <div class="container w-full h-full flex flex-col lg:flex-row items-center justify-center">
+<div class="w-full h-screen relative flex flex-col pt-32 pb-16 items-center justify-start bg-white">
+    <div
+        class="container w-full h-full flex flex-col lg:flex-row items-center justify-center">
         <div class="w-full lg:w-[65%] h-full lg:pr-2 lg:pb-0 flex flex-col">
             <div class="w-full  h-[750px] lg:h-1/2 p-2 flex">
-                <div class="w-full p-4 flex flex-col bg-white items-center border border-gray-300 rounded-lg shadow-lg">
-                    <h1 class="w-full flex text-xl font-bold">Request Detail for {{ request_detail.petowner.first_name }} {{ request_detail.petowner.last_name }}</h1>
+                <div class="w-full p-4 flex flex-col bg-white items-center">
+                    <h1 class="w-full flex text-xl font-bold p-4">Request Detail for {{ request_detail.petowner.first_name }} {{ request_detail.petowner.last_name }}</h1>
                     <div class="w-full flex flex-col p-4">
-                        <h2 class="text-lg font-semibold">Pet: {{ request_detail.pet.name }}</h2>
+                        <h2 class="text-lg font-semibold p-1">Pet: {{ request_detail.pet.name }}</h2>
                     </div>
                     <div class="w-full flex flex-col p-4">
                         {% if request_detail.service %}
                         <div class="w-full flex flex-row items-center p-2">
-                            <p class="text-lg font-semibold">Service: 
+                            <p class="text-lg font-semibold">Service:
                             </p>
                             <h5 class="flex w-full px-1 text-center">{{ request_detail.service.name }}</h5>
                         </div>
                         <div class="w-full flex flex-row items-center p-2">
-                            <p class="text-lg font-semibold">Cos: 
+                            <p class="text-lg font-semibold">Cos:
                             </p>
                             <h5 class="flex w-full px-1 text-center">{{ request_detail.service.cost }}$</h5>
                         </div>
 
-                        <div class="w-full flex flex-row items-center p-2">
-                            <p class="text-lg font-semibold">Description: 
+                        <div class="w-full flex flex-row p-2">
+                            <p class="text-lg font-semibold">Description:
                             </p>
-                            <h5 class="w-full px-1 text-justify">{{ request_detail.service.description }}</h5>
+                            <h5 class="px-2 text-left">{{ request_detail.service.description }}</h5>
                         </div>
                         <div class="w-full flex flex-row items-center p-2">
                             {% endif %}
@@ -43,18 +44,18 @@
                             </p>
                         </div>
                     </div>
-                    <div class="w-full flex flex-row items-center p-2">
-                            <p class="text-lg font-semibold pr-4">Latest Status: </p>
-                            {% if request_detail.latest_status_update %}
-                            <p class="text-gray-700"> {{ request_detail.latest_status_update }} </p>
-                            {% else %}
-                            <p class="text-gray-500"> No status updates available. </p>
-                            {% endif %}
+                    <div class="w-full flex flex-row items-center p-4">
+                        <p class="text-lg font-semibold pr-4">Latest Status: </p>
+                        {% if request_detail.latest_status_update %}
+                        <p class="text-gray-700"> {{ request_detail.latest_status_update }} </p>
+                        {% else %}
+                        <p class="text-gray-500"> No status updates available. </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="w-full h-[250px] lg:h-1/2 p-2 flex">
-                <div class="w-full p-4 flex flex-col bg-white items-center border border-gray-300 rounded-lg shadow-lg">
+                <div class="w-full p-4 flex flex-col bg-white items-center">
                     {% if request.user.is_vetstaff %}
                     <h2 class="flex text-lg font-semibold">Update Status</h2>
                     <div class="flex">
@@ -85,13 +86,16 @@
                     </div>
                     {% else %}
                     <div class="flex">
-                        <div class="flex p-2">
+                        <div class="flex p-2 items-center">
                             <form action="{% url 'services:cancel_service_request' request_detail.id %}" method="post"
                                 class="mb-2">
                                 {% csrf_token %}
-                                <button type="submit"
-                                    class="h-fit p-[2px] flex flex-row items-center justify-center font-medium text-gray-900 rounded-lg bg-gradient-to-br from-red-500 to-red-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-200 w-60 py-1 transition-all ease-in duration-75">
-                                    Cancel Request
+                                <button
+                                    class="h-fit p-[2px] flex flex-row items-center font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                                    <span
+                                        class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                                        Cancel Request
+                                    </span>
                                 </button>
                             </form>
                         </div>
@@ -113,7 +117,7 @@
             </div>
         </div>
         <div class="w-full lg:w-[35%] h-full lg:pl-2 pt-2 lg:pt-0 flex flex-col">
-            <div class="w-full h-[170px] lg:h-1/2 p-4 flex flex-col bg-white border border-gray-300 rounded-lg shadow-lg">
+            <div class="w-full h-[170px] lg:h-1/2 p-4 flex flex-col bg-white">
                 <h2 class="flex text-lg font-semibold mb-3 w-full px-1 text-center text-justify">Updates History</h2>
                 {% for update in updates %}
                 <div class="mb-2 mt-2 flex flex-col justify-center py-2">

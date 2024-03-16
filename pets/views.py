@@ -2,11 +2,12 @@ import json
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from pet_app.decorators import vetstaff_required, petowner_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PetOwnerForm, WeightRecordPetForm, WeightRecordPetInitialForm, GoalWeightForm
 from .models import WeightRecord
 from .models import Pet
-from userprofile.models import PetOwner
+from userprofile.models import PetOwner, VetStaff
 
 
 
@@ -203,14 +204,25 @@ def weighttracker(request):
 
 @login_required
 def petowner_detail(request, petowner_id):
+    # Since PetOwner's PK is the same as User's ID, we use petowner_id to find the corresponding User
     petowner = get_object_or_404(PetOwner, pk=petowner_id)
-    pets = Pet.objects.filter(petowner=petowner_id)
+    # Use the related_name 'pets' to fetch pets for the user
+    pets = Pet.objects.filter(petowner__id=petowner_id)
 
     context = {
         'petowner': petowner, 
         'pets': pets
     }
     return render(request, 'pets/petowner_detail.html', context)
+
+@login_required
+def vetstaff_detail(request, vetstaff_id):
+    vetstaff = get_object_or_404(VetStaff, pk=vetstaff_id)
+
+    context = {
+        'vetstaff': vetstaff,  # Removed the space after 'vetstaff'
+    }
+    return render(request, 'pets/vetstaff_detail.html', context)
 
 @login_required
 def petowner_list(request):
@@ -221,22 +233,43 @@ def petowner_list(request):
     }
     return render(request, 'pets/petowner_list.html', context)
 
+
+
+
 @login_required
-def search_for_pets(request):
+def search(request):
     query = request.GET.get('query', '')
+    petowners = PetOwner.objects.none()
+    pets = Pet.objects.none()
+    vetstaff = VetStaff.objects.none()
 
-    # Query for PetOwners and Pets
-    petowners = PetOwner.objects.filter(
-        user__username__icontains=query) | PetOwner.objects.filter(
-        user__first_name__icontains=query) | PetOwner.objects.filter(
-        user__last_name__icontains=query)
+    user = request.user
 
-    pets = Pet.objects.filter(name__icontains=query)
-    
+    # Utilize the custom boolean fields in your User model for role determination
+    if user.is_vetstaff:
+        # Vet staff search logic for petowners and pets
+        petowners = PetOwner.objects.filter(
+            Q(user__username__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+        ).distinct()
+        pets = Pet.objects.filter(name__icontains=query).distinct()
+
+    elif user.is_petowner:
+        # Pet owner search logic for vetstaff
+        vetstaff = VetStaff.objects.filter(
+            Q(user__username__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+        ).distinct()
+
+    # Prepare context with search results
     context = {
         'petowners': petowners,
         'pets': pets,
+        'vetstaff': vetstaff,
         'query': query
     }
 
     return render(request, 'pets/search_results.html', context)
+

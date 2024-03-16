@@ -1,23 +1,55 @@
-<!-- petowner_detail.html -->
 {% extends 'core/base.html' %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
 {% load static %}
-<div class="w-full h-full p-32 flex justify-center">
-    <div class="container w-full p-16 flex flex-col items-center justify-center">
-        <div class="w-full pb-2 flex">
-            <h1>{{ petowner.user.get_full_name }}</h1>
-            <!-- Display other pet owner details -->
-            <h2>Pets:</h2>
-            <ul>
-                {% for pet in pets %}
-                <li>{{ pet.name }}</li>
-                <!-- More pet details -->
-                {% endfor %}
-            </ul>
+<div class="w-full h-full p-32 items-center">
+    <div class="container w-full flex flex-col p-4 bg-white shadow-md rounded-lg p-6">
+        <!-- Corrected to use petowner.user for user-related information -->
+        <h1 class="flex text-2xl font-bold p-3">{{ petowner.user.get_full_name }}</h1>
+        <div class="w-full flex flex-row">
+            <div class="w-full flex flex-col pl-6">
+                <!-- Use petowner.user to access user fields -->
+                <div class="w-full py-1 flex border-b border-slate-300">
+                    <strong class="block text-xl font-light text-gray-700 pr-3">Username: </strong>
+                    <span class="text-xl font-light text-gray-600"> {{ petowner.user.username }} </span>
+                </div>
+                <div class="w-full pt-4 flex flex-col lg:flex-row lg:flex-wrap">
+                    <!-- Correct all references to user properties to use petowner.user -->
+                    <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                        <strong class="block text-gray-700 pr-3">First Name:</strong>
+                        <span class="text-gray-600">{{ petowner.user.first_name }}</span>
+                    </div>
+                    <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                        <strong class="block text-gray-700 pr-3">Last Name:</strong>
+                        <span class="text-gray-600">{{ petowner.user.last_name }}</span>
+                    </div>
+                    <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                        <strong class="block text-gray-700 pr-3">Email:</strong>
+                        <span class="text-gray-600">{{ petowner.user.email }}</span>
+                    </div>
+                    <div class="w-full lg:w-1/2 py-1 flex flex-row">
+                        <strong class="block text-gray-700 pr-3">Phone Number:</strong>
+                        <span class="text-gray-600">{{ petowner.user.phone_number }}</span>
+                    </div>
+                </div>
+                <!-- Displaying pets related to the petowner -->
+                <div class="w-full flex flex-row pt-3">
+                    <h2 class="flex block text-gray-700 pr-3"> 
+                        <strong class="block text-gray-700 pr-3"> Pets:</strong>
+                    </h2>
+                    <ul class="flex flex-row">
+                        {% for pet in pets %}
+                        <li class="block text-gray-700 pr-3">{{ pet.name }} - {{ pet.breed }}</li>
+                        {% empty %}
+                        <li class="flex">No pets found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

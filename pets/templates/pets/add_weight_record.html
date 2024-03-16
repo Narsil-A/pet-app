@@ -2,9 +2,9 @@
 
 {% block content %}
 {% load widget_tweaks %}
-<div class="w-full h-full p-16 flex justify-center">
+<div class="w-full h-full p-16 flex justify-center bg-white">
     <div class="w-full h-full p-16 flex justify-center">
-        <div class="container w-[75%] p-12 bg-white shadow-lg rounded-lg">
+        <div class="container w-[75%] p-12">
             <h1 class="text-2xl font-semibold text-gray-800 mb-4">Track Weight for {{ pet.name }}</h1>
             <form method="post" class="space-y-4">
                 {% csrf_token %}

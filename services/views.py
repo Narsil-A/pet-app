@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from pet_app.decorators import vetstaff_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from userprofile.models import Notification, User, PetOwner
@@ -17,7 +16,7 @@ from .models import PetService, PetServiceTracker, PetRequestService
 logger = logging.getLogger(__name__)
 
 
-@vetstaff_required
+@login_required
 def service_list(request):
     services = PetService.objects.all()
 
@@ -26,7 +25,7 @@ def service_list(request):
     })
 
 
-@vetstaff_required
+@login_required
 def service_detail(request, pk):
     service = get_object_or_404(
         PetService, created_by=request.user, pk=pk)
@@ -36,7 +35,7 @@ def service_detail(request, pk):
     })
 
 
-@vetstaff_required
+@login_required
 def service_delete(request, pk):
     service = get_object_or_404(
         PetService, created_by=request.user, pk=pk)
@@ -46,7 +45,7 @@ def service_delete(request, pk):
     return redirect('services:list')
 
 
-@vetstaff_required
+@login_required
 def service_edit(request, pk):
     service = get_object_or_404(
        PetService, created_by=request.user, pk=pk)
@@ -69,7 +68,7 @@ def service_edit(request, pk):
     })
 
 
-@vetstaff_required
+@login_required
 def add_service(request):
     if request.method == 'POST':
         form = PetServicesForm(request.POST)
