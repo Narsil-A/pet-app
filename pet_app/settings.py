@@ -33,6 +33,8 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
+
+
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
@@ -100,10 +102,12 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
 database_url = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse("DATABASE_URL")
+print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 
-#"postgres://my_pet_app_user:pDfblukvTEyzr3t7VkbcBHjzr3v622h0@dpg-cnqq8e20si5c73bs61ug-a.oregon-postgres.render.com/my_pet_app"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
