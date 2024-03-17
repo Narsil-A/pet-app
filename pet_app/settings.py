@@ -1,7 +1,6 @@
-
+import os
 import dj_database_url
 from decouple import config
-import os
 from pathlib import Path
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
