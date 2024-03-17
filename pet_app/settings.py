@@ -95,6 +95,7 @@ WSGI_APPLICATION = "pet_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -102,9 +103,14 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse("DATABASE_URL")
+# Fetch the DATABASE_URL from the environment variables
+database_url = os.getenv("DATABASE_URL")
 
+# Only override the DATABASES['default'] if a database_url is actually provided
+if database_url:
+    DATABASES["default"] = dj_database_url.parse(database_url)
+else:
+    print("No DATABASE_URL environment variable found, using SQLite as the default database.")
 
 
 # Password validation
