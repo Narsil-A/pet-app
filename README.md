@@ -28,9 +28,9 @@ This application is a comprehensive solution designed for veterinary medical cen
 - **Database:** SQLite, PostgreSQL 16
 - **Payments:** Stripe
 
-  ![Dashboard](/home.png "home")
-  ![Dashboard](/vet_dashboard.png "Vet Dashboard")
-  ![Dashboard](/dashboard.png "PetOwner Dashboard")
-  ![pet detail](/pet_detail.png "Pet detail")
-  ![virtual assistan](/virtualassistant.png "virtualasssintant")
-  ![Dashboard](/create_slot.png "Vet")
+  ![Dashboard](images/home.png "home")
+  ![Dashboard](images/vet_dashboard.png "Vet Dashboard")
+  ![Dashboard](images/dashboard.png "PetOwner Dashboard")
+  ![pet detail](images/pet_detail.png "Pet detail")
+  ![virtual assistan](images/virtualassistant.png "virtualasssintant")
+  ![Dashboard](images/create_slot.png "Vet")
