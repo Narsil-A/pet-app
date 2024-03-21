@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.service_delete, name='delete'),
     path('<int:pk>/edit/', views.service_edit, name='edit'),
     path('add-service/', views.add_service, name='add_service'),
+    path('create-category/', views.create_pet_service_category, name='create_category'),
     path('request-service/', views.request_service, name='request_service'),
     path('cancel/<int:request_id>/', views.cancel_service_request, name='cancel_service_request'),
     path('request-service-list/', views.request_service_list, name='request_list'),

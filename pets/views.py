@@ -204,9 +204,9 @@ def weighttracker(request):
 
 @login_required
 def petowner_detail(request, petowner_id):
-    # Since PetOwner's PK is the same as User's ID, we use petowner_id to find the corresponding User
+   
     petowner = get_object_or_404(PetOwner, pk=petowner_id)
-    # Use the related_name 'pets' to fetch pets for the user
+    
     pets = Pet.objects.filter(petowner__id=petowner_id)
 
     context = {
@@ -220,7 +220,7 @@ def vetstaff_detail(request, vetstaff_id):
     vetstaff = get_object_or_404(VetStaff, pk=vetstaff_id)
 
     context = {
-        'vetstaff': vetstaff,  # Removed the space after 'vetstaff'
+        'vetstaff': vetstaff,  
     }
     return render(request, 'pets/vetstaff_detail.html', context)
 
@@ -263,7 +263,6 @@ def search(request):
             Q(user__last_name__icontains=query)
         ).distinct()
 
-    # Prepare context with search results
     context = {
         'petowners': petowners,
         'pets': pets,

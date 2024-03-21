@@ -9,7 +9,18 @@
 <div class="w-full h-screen p-32 flex justify-center bg-white">
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-6">Medical Visits Lists</h1>
-
+        <div class="w-full p-4 flex flex-row justify-right">
+            <button
+                class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                <a href="{% url 'medicalvisit:add_medical_history' %}" class="w-full flex flex-row justify-center
+                    items-center">
+                    Add medical history options
+                </a>
+                </span>
+            </button>
+        </div>
         {% if medical_visits %}
         <div class="w-full flex justify-between items-center bg-gray-300">
             <div class="w-[5%] py-4 flex justify-center items-center">

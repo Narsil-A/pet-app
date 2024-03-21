@@ -7,6 +7,18 @@
     <div class="container mx-auto p-6">
 
         <h1 class="text-2xl font-bold mb-6">Pet Services</h1>
+        <div class="w-full p-4 flex flex-row items-end">
+            <button
+                class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">
+                <span
+                    class="w-60 py-1 flex flex-row items-center justify-center rounded-md bg-white hover:bg-opacity-0 transition-all ease-in duration-75">
+                    <a href="{% url 'services:add_service' %}" class="w-full flex flex-row justify-center
+                items-center">
+                        Add Services
+                    </a>
+                </span>
+            </button>
+        </div>
         {% if services %}
         <div class="w-full flex justify-between items-center bg-gray-300">
             <div class="w-[25%] py-4 flex justify-center items-center">
@@ -59,7 +71,7 @@
             </button>
         </div>
         {% else %}
-        <p class="mt-6">there are not Diagnostic services in the databases yet</p>
+        <p class="mt-6">there are not services in the databases yet</p>
         <div class="w-full p-4 flex flex-row justify-center">
             <button
                 class="h-fit p-[2px] flex flex-row items-center justify-center text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-pink-200">

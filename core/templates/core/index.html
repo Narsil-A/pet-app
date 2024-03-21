@@ -1,33 +1,35 @@
 {% extends 'core/base.html' %}
 
-{% block title %} My Pet app{% endblock %}
+{% block title %}My Pet app{% endblock %}
 
 {% block content %}
 
-<div class="relative w-screen h-screen -mt-16 bg-pink-300">
+<div class="relative bg-pink-300 w-full min-h-screen">
     <!-- Fullscreen background image -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('static/pet_app/bg_pink.png');"></div>
+    <div class="absolute inset-0 bg-no-repeat bg-cover bg-center" style="background-image: url('static/pet_app/bg_pink.png');"></div>
   
-    <!-- Smaller image on top -->
-    <div class="absolute left-1/2 top-60 transform -translate-x-1/2" style="background-image: url('static/pet_app/pets_without_bg.png'); background-size: contain; background-repeat: no-repeat; width: 800px; height: 800px;"></div>
+    <!-- Smaller image on top using img tag for better responsiveness -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 top-1/4 md:top-60">
+        <img src="static/pet_app/pets_without_bg.png" alt="Pets" class="w-1/2 max-w-xs md:max-w-lg lg:max-w-xl mx-auto" style="width: 90%; max-width: 900px; height: auto;">
+    </div>
     
-    <!-- Text content -->
-    <div class="absolute top-32 w-full flex flex-col justify-start pt-32 z-10">
+    <!-- Text content, adjust padding and text size for smaller screens -->
+    <div class="absolute top-0 w-full flex flex-col justify-start pt-8 md:pt-32 z-10">
       <div class="text-center">
-        <h1 class="text-5xl font-bold text-white">
+        <h1 class="text-3xl md:text-5xl font-bold text-white">
           Your Pet's Health Journey Starts Here
         </h1>
-        <p class="text-xl text-white mt-4">
+        <p class="text-md md:text-xl text-white mt-2 md:mt-4">
           Join the most caring pet community with MyPetApp
         </p>
         <!-- Add more content or buttons below if needed -->
       </div>
     </div>
-  </div>
+</div>
   
 <footer class="w-full h-16 py-4 flex bg-gradient-to-br from-sky-50 to-sky-200">
     <div class="w-full flex justify-center items-center">
-        <p class="w-fit text-xs text-gray-700">Copyright (c) 2023 - My Pets App</p>
+        <p class="text-xs sm:text-sm text-gray-700">Copyright © 2024 - Decalin-Stack</p>
     </div>
 </footer>
 

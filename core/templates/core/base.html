@@ -21,10 +21,17 @@
     <nav class="w-full h-15 fixed top-0 z-50  px-2 sm:px-4 py-2" id="navbar">
         <div class="container flex items-center justify-between mx-auto">
             <a href="/" class="flex items-center pr-56">
-                <span class="self-center text-xl font-semibold whitespace-nowrap text-white cursor-pointer">My
+                <span class="self-center text-lg md:text-xl font-semibold whitespace-nowrap text-white cursor-pointer">My
                     Pet App</span>
             </a>
-            <div class="flex items-center space-x-2">
+            <div class="flex md:hidden">
+                <button id="mobile-menu-button" aria-label="Open main menu">
+                    <!-- Icon for mobile menu button -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            
+            <div class="hidden md:flex md:items-center md:space-x-4">
                 {% if request.user.is_authenticated %}
                 <div class="flex-grow pl-56">
                     <form action="{% url 'pets:search' %}" method="get" class="relative flex-grow max-w-lg">
@@ -305,9 +312,8 @@
                                 class="py-2 px-4 rounded-xl text-white border-2 border-white hover:bg-gradient-to-br from-pink-500 to-orange-400 cursor-pointer">
                                 Sign Up
                             </button>
-
                             <ul id="signupDropdown"
-                                class="w-48 absolute top-12 right-0 hidden border border-slate-200 rounded-xl z-50 cursor-pointer">
+                                class="w-48 absolute top-14 right-0 hidden border border-slate-200 rounded-xl z-50 cursor-pointer">
                                 <li
                                     class="px-4 py-2 block text-sm text-white cursor-pointer hover:bg-gradient-to-br from-pink-500 to-orange-400 rounded-t-xl">
                                     <a class="" href="{% url 'userprofile:signup' 'petowner' %}">
@@ -324,6 +330,22 @@
                         </div>
                     </div>
                     {% endif %}
+                    <div id="mobile-menu" class="hidden md:hidden">
+                        <ul>
+                            <!-- Mobile menu content -->
+                            <!-- Dynamically show menu based on authentication status -->
+                            {% if request.user.is_authenticated %}
+                            <!-- Authenticated user mobile menu -->
+                            <li><a href="{% url 'dashboard:dashboard' %}" class="block py-2 px-4 text-sm hover:bg-gray-200">Dashboard</a></li>
+                            <!-- Add more links as needed -->
+                            {% else %}
+                            <!-- Unauthenticated user mobile menu -->
+                            <li><a href="{% url 'login' %}" class="block py-2 px-4 text-sm hover:bg-gray-200">Log in</a></li>
+                            <li><a href="{% url 'userprofile:signup' 'petowner' %}" class="block py-2 px-4 text-sm hover:bg-gray-200">Sign Up as Pet Owner</a></li>
+                            <li><a href="{% url 'userprofile:signup' 'vetstaff' %}" class="block py-2 px-4 text-sm hover:bg-gray-200">Sign Up as Vet Staff</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
                     <button data-collapse-toggle="mobile-menu-4" type="button"
                         class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="mobile-menu-4" aria-expanded="false">

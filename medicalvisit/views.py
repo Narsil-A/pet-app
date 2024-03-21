@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from pet_app.decorators import vetstaff_required
+from pets.forms import MedicalHistoryForm
 from .forms import PetMedicalVisitForm
 from .models import PetMedicalVisit
 
@@ -70,4 +71,14 @@ def medical_visit_edit(request, medical_visit_id):
         'form': form,
     })
 
-   
+@vetstaff_required
+def add_medical_history(request):
+    if request.method == 'POST':
+        form = MedicalHistoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('medicalvisit:medical_visit_list')  
+    else:
+        form = MedicalHistoryForm()
+    
+    return render(request, 'medicalvisit/add_medical_history.html', {'form': form})

@@ -2,9 +2,22 @@
 from django import forms
 from django.forms import Textarea
 from pets.models import Pet
-from .models import PetService, PetServiceTracker, PetRequestService
+from .models import PetService, PetServiceTracker, PetRequestService, PetServiceCategory
 
 
+
+
+
+class PetServiceCategoryForm(forms.ModelForm):
+    class Meta:
+        model = PetServiceCategory
+        fields = ['name']
+        labels = {
+            'name': 'Service Category',
+        }
+        help_texts = {
+            'name': 'Select a category for the pet service.',
+        }
 
 class PetServicesForm(forms.ModelForm):
     class Meta:
@@ -18,7 +31,7 @@ class PetRequestServicesForm(forms.ModelForm):
         fields = ['service', 'pet'] 
         
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Correctly extract the user
+        user = kwargs.pop('user', None)  
         super(PetRequestServicesForm, self).__init__(*args, **kwargs)
         if user:
             self.fields['pet'].queryset = Pet.objects.filter(petowner=user)
@@ -36,6 +49,6 @@ class PetServiceTrackerUpdateForm(forms.ModelForm):
         widgets = {
             'notes': Textarea(attrs={
                 'class': 'shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                'rows': 1,  # Set the number of rows to define the initial height of the textarea
+                'rows': 1, 
             }),
         }

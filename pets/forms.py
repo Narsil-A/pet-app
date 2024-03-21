@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Pet, WeightRecord
+from .models import Pet, WeightRecord, MedicalHistory
 
 
 
@@ -66,3 +66,18 @@ class GoalWeightForm(forms.ModelForm):
     class Meta:
         model = WeightRecord
         fields = ['goal_weight']
+
+
+class MedicalHistoryForm(forms.ModelForm):
+    class Meta:
+        model = MedicalHistory
+        fields = ['category']
+        labels = {
+            'category': 'Medical History Category',
+        }
+        help_texts = {
+            'category': 'Select the appropriate category for the medical history record.',
+        }
+        widgets = {
+            'category': forms.Select(attrs={'class': 'form-control'}),
+        }

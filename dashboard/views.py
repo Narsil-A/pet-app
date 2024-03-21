@@ -17,16 +17,13 @@ def dashboard(request):
         try:
             context['vetstaff_info'] = VetStaff.objects.get(user=user)
         except ObjectDoesNotExist:
-            # Redirect to a profile setup page or show an error message
-            return redirect('profile-setup')  # Example redirect
+            return redirect('dashboard:dashboard') 
         
-    elif user.is_petowner:
-        context['user_type'] = 'petowner'
-        # Directly filter pets based on the user instance
-        context['pets'] = Pet.objects.filter(petowner=user)  # Use 'petowner' or the correct related name
-        ...
     else:
-        context['user_type'] = 'other'
+        user.is_petowner
+        context['user_type'] = 'petowner'
+       
+        context['pets'] = Pet.objects.filter(petowner=user)  
 
     return render(request, 'dashboard/dashboard2.html', context)
 

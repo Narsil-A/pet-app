@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from userprofile.models import Notification, User, PetOwner
-from .forms import PetServicesForm, PetRequestServicesForm, PetServiceTrackerUpdateForm
+from .forms import PetServicesForm, PetRequestServicesForm, PetServiceTrackerUpdateForm, PetServiceCategoryForm
 from .models import PetService, PetServiceTracker, PetRequestService
 
 logger = logging.getLogger(__name__)
@@ -67,6 +67,16 @@ def service_edit(request, pk):
 
     })
 
+def create_pet_service_category(request):
+    if request.method == 'POST':
+        form = PetServiceCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+    else:
+        form = PetServiceCategoryForm()
+    
+    return render(request, 'services/create_category.html', {'form': form})
 
 @login_required
 def add_service(request):
@@ -206,7 +216,7 @@ def cancel_service_request(request, request_id):
     else:
         messages.error(request, "You do not have permission to cancel this service request.")
 
-    # Redirect to an appropriate page after deletion
+
     return redirect('services:request_list')
 
 

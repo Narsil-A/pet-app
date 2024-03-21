@@ -15,7 +15,7 @@ class User(AbstractUser):
     ('US', 'United States'),
     ('CA', 'Canada'),
     ('GB', 'United Kingdom'),
-    # Add more countries as needed
+   
 ]
     is_vetstaff = models.BooleanField(default=False)
     is_petowner = models.BooleanField(default=False)

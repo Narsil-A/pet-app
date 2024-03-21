@@ -35,7 +35,7 @@ def myaccount(request):
 
 @login_required
 def edit_profile(request, user_id):
-    user = get_object_or_404(User, id=user_id)  # Corrected field name
+    user = get_object_or_404(User, id=user_id)  
 
     if user.is_vetstaff:
         vetstaff = VetStaff.objects.get(user=user)
@@ -68,7 +68,7 @@ def change_password(request):
             user = request.user
             user.set_password(form.cleaned_data['new_password'])
             user.save()
-            # Redirect to a success page, e.g., login page
+           
             return redirect('/log-in/')
     else:
         form = PasswordChangeForm(request.user)

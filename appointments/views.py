@@ -79,7 +79,7 @@ def available_slots(request):
     print("Selected Date:", selected_date, type(selected_date))
     return JsonResponse(slots_data, safe=False)
 
-# appointments/views.py
+
 
 
 
@@ -98,16 +98,14 @@ def cancel_appointment(request, appointment_id):
     slot.save()
 
     # Delete or update the appointment as per your requirement
-    # For deleting:
+
     appointment.delete()
 
     # For updating (e.g., setting a 'cancelled' flag):
-    # appointment.is_cancelled = True
     # appointment.save()
 
     messages.success(request, "Your appointment has been successfully cancelled.")
-    return redirect('dashboard:dashboard')  # Redirect to a relevant page
-
+    return redirect('dashboard:dashboard') 
 
 
 
@@ -149,7 +147,7 @@ def delete_slots(request, appointmentslot_id):
         messages.error(request, "Appointment slot not found.")
 
     # Redirect to a view that lists all slots, or to another appropriate page
-    return redirect('appointments:slots_view')  # Replace with actual URL name
+    return redirect('appointments:slots_view')  
 
 
 
