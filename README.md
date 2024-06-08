@@ -2,7 +2,7 @@
 ## Veterinary Medical Center Application
 
 ### Overview
-This application is a comprehensive solution designed for veterinary medical centers to facilitate and streamline the interaction between pet owners and veterinary staff. Developed using Django for the backend, Tailwind CSS and JavaScript for the frontend, and supported by SQLite and PostgreSQL 16 for database management, it offers a user-friendly platform for managing pet healthcare services.
+This application is a comprehensive solution designed for veterinary medical centers to facilitate and streamline the interaction between pet owners and veterinary staff. Developed using Django for the backend, Tailwind CSS and JavaScript for the frontend, and supported by SQLite and PostgreSQL for database management, it offers a user-friendly platform for managing pet healthcare services.
 
 ### Features
 
